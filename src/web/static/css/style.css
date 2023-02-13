@@ -1,0 +1,26 @@
+:root {
+	--main-color:       #B29F7E;
+	--accent-color:     #F4A460;
+	--background-color: #F5F5DC;
+	--text-color:       #696969;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url("/static/ttf/Roboto-Regular.ttf");
+}
+
+body {
+	background-color: var(--background-color);
+	color: var(--text-color);
+	font-family: Roboto;
+	margin: 5% 15% 10% 15%;
+}
+
+h1, h2, h3 {
+	color: var(--main-color)
+}
+
+a {
+	color: var(--accent-color);
+}
