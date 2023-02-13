@@ -24,3 +24,25 @@ h1, h2, h3 {
 a {
 	color: var(--accent-color);
 }
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.delete {
+	width: 1em;
+	color: red;
+	text-align: center;
+}
+.delete::after {
+	content: "✗";
+}
+.delete:hover {
+	cursor: pointer;
+}

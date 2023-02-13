@@ -29,5 +29,5 @@ from authentication import *
 # Website routes.
 from routes import *
 
-## API endpoints.
-#from api import *
+# API endpoints.
+from api import *

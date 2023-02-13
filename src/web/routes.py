@@ -41,3 +41,11 @@ def admin_change_password():
 		return redirect(url_for("index"))
 	return render_template("admin/change-password.html")
 
+@app.route("/admin/users", methods=["GET"])
+@login_required
+def admin_users():
+
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/users.html")
+
