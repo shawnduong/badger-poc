@@ -46,3 +46,12 @@ th, td {
 .delete:hover {
 	cursor: pointer;
 }
+
+.invis-table, .invis-table tr th, .invis-table tr td {
+	border: 0px solid black;
+	border-collapse: collapse;
+}
+
+.table-header {
+	background-color: var(--accent-color);
+}

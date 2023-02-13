@@ -14,7 +14,7 @@ function update()
 
 			$("#user-table-data ").empty();
 			$("#user-table-data:last-child").append(
-				"<tr>"+
+				"<tr class='table-header'>"+
 					"<th>Card ID</th>"+
 					"<th>Name</th>"+
 					"<th>Email</th>"+
