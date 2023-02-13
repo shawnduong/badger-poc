@@ -48,3 +48,37 @@ def api_user_delete(cardID):
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/user/edit/name", methods=["POST"])
+@login_required
+def api_user_edit_name():
+
+	try:
+		current_user.name = request.form["name"]
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/user/edit/email", methods=["POST"])
+@login_required
+def api_user_edit_email():
+
+	try:
+		current_user.email = request.form["email"]
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/user/info", methods=["GET"])
+@login_required
+def api_user_info():
+
+	try:
+		return {
+			"Response": "200 OK",
+			"User": {"name": current_user.name, "email": current_user.email}
+		}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+

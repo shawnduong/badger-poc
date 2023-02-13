@@ -9,7 +9,58 @@
 
 <body>
 
-	<h1>Hello world!</h1>
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+
+	<a href="/logout">&#8592; Logout</a>
+	<h1>Badger</h1>
+
+	<div id="account-info">
+		<h3>Account Info</h3>
+		<table class="invis-table">
+			<tr>
+				<td>Card ID</td>
+				<td><b id="cardID"></b></td>
+			</tr>
+			<tr>
+				<td style="height: 1.5em">Name</td>
+				<td>
+					<div id="name-container">
+						<b id="name">{{ current_user.name }}</b>
+						<img class="edit-icon" id="edit-name" style="margin-left: 2em"/>
+					</div>
+					<div id="name-edit-container" hidden>
+						<form id="name-edit-form">
+							<input type="text" id="name-form" name="name-form" style="margin-right: 1em">
+							<button type="submit" class="confirm nobutton"></button>
+							<span class="delete" id="name-edit-cancel"></span>
+						</form>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="height: 1.5em">Email</td>
+				<td>
+					<div id="email-container">
+						<b id="email">{{ current_user.email }}</b>
+						<img class="edit-icon" id="edit-email" style="margin-left: 2em"/>
+					</div>
+					<div id="email-edit-container" hidden>
+						<form id="email-edit-form">
+							<input type="text" id="email-form" name="email-form" style="margin-right: 1em">
+							<button type="submit" class="confirm nobutton"></button>
+							<span class="delete" id="email-edit-cancel"></span>
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<script>
+		let v = {{ current_user.cardID }};
+		$("#cardID").html(v.toString(16).padStart(8, "0"));
+	</script>
+	<script src="/static/js/app.js"></script>
 
 </body>
 

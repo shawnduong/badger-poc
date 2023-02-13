@@ -92,7 +92,8 @@ class Account(UserMixin, db.Model):
 
 class Event(db.Model):
 	"""
-	Events.
+	Events. Note that the times are epoch time. If a weblink is present, then
+	the user may click the link to learn more about the event externally.
 	"""
 
 	__tablename__ = "events"

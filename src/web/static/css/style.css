@@ -47,6 +47,18 @@ th, td {
 	cursor: pointer;
 }
 
+.confirm {
+	width: 1em;
+	color: green;
+	text-align: center;
+}
+.confirm::after {
+	content: "✔";
+}
+.confirm:hover {
+	cursor: pointer;
+}
+
 .invis-table, .invis-table tr th, .invis-table tr td {
 	border: 0px solid black;
 	border-collapse: collapse;
@@ -54,4 +66,21 @@ th, td {
 
 .table-header {
 	background-color: var(--accent-color);
+}
+
+.edit-icon {
+	content: url("/static/svg/edit.svg");
+	height: 1em;
+}
+.edit-icon:hover {
+	cursor: pointer;
+}
+
+.nobutton {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
 }
