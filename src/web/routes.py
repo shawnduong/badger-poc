@@ -57,6 +57,17 @@ def admin_announcements_create():
 		return redirect(url_for("index"))
 	return render_template("admin/announcements/create.html")
 
+@app.route("/admin/announcements/edit/<id>", methods=["GET"])
+@login_required
+def admin_announcements_edit(id):
+
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+
+	a = Announcement.query.filter_by(id=id).first()
+	return render_template("admin/announcements/edit.html", id=id,
+		contents=a.contents, timestamp=a.timestamp)
+
 @app.route("/admin/users", methods=["GET"])
 @login_required
 def admin_users():

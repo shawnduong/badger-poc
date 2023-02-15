@@ -45,3 +45,20 @@ def api_announcement_delete(id):
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/announcement/edit/<id>", methods=["POST"])
+@login_required
+def api_announcement_edit(id):
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		id = int(id)
+		announcement = Announcement.query.filter_by(id=id).first()
+		announcement.contents = request.form["contents"]
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
