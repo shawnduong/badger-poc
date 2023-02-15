@@ -12,7 +12,7 @@ function update()
 			lastUpdate = dataStr;
 			console.log("Updating");
 
-			$("#user-table-data ").empty();
+			$("#user-table-data").empty();
 			$("#user-table-data:last-child").append(
 				"<tr class='table-header'>"+
 					"<th>Card ID</th>"+
