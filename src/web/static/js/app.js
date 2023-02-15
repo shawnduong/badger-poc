@@ -1,5 +1,6 @@
 let lastUpdatePoints = null;
 let lastUpdateAnnouncements = null;
+let ahidden = true;
 
 /* Continuously update the page via AJAX. */
 function refresh()
@@ -19,6 +20,7 @@ function refresh()
 		if (lastUpdateAnnouncements != dataStr)
 		{
 			let a = data.Announcements;
+			a.reverse();
 			lastUpdateAnnouncements = dataStr;
 
 			$("#announcements-list").empty();
@@ -31,12 +33,18 @@ function refresh()
 				if (i == a.length)  break;
 
 				let t = new Date(a[i].timestamp);
-				let time =
-					t.toLocaleDateString().slice(0, -5)+" "+
+				let time = t.toLocaleDateString().slice(0, -5)+" "+
 					t.toLocaleTimeString().slice(0, -6)+t.toLocaleTimeString().slice(-2);
-				$("#announcements-list").append(
-					"<p><b>"+time+"</b> "+a[i].contents+"</p>"
-				);
+				$("#announcements-list").append("<p><b>"+time+"</b> "+a[i].contents+"</p>");
+			}
+
+			for (let i = 3; i < a.length; i++)
+			{
+				let t = new Date(a[i].timestamp);
+				let time = t.toLocaleDateString().slice(0, -5)+" "+
+					t.toLocaleTimeString().slice(0, -6)+t.toLocaleTimeString().slice(-2);
+				if (ahidden)  $("#announcements-list").append("<p class='aextra' hidden><b>"+time+"</b> "+a[i].contents+"</p>");
+				else          $("#announcements-list").append("<p class='aextra'><b>"+time+"</b> "+a[i].contents+"</p>");
 			}
 		}
 	});
@@ -103,4 +111,21 @@ $("#email-edit-form").submit(function()
 	});
 
 	return false;
+});
+
+/* Un/hide announcements. */
+$("#announcements-expand-toggle").click(function()
+{
+	if (ahidden)
+	{
+		ahidden = false;
+		$(".aextra").each(function () { $(this).attr("hidden", false) });
+		$("#announcements-expand-toggle").text("Unexpand");
+	}
+	else
+	{
+		ahidden = true;
+		$(".aextra").each(function () { $(this).attr("hidden", true) });
+		$("#announcements-expand-toggle").text("Expand");
+	}
 });
