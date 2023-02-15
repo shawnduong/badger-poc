@@ -85,6 +85,10 @@ th, td {
 	outline: inherit;
 }
 
+.nodecor {
+	text-decoration: none;
+}
+
 #points {
 	font-size: 1.5em;
 }
