@@ -10,7 +10,7 @@ $(document).ready(function()
 				"<tr id='"+data.Announcements[i].id+"'>" +
 					"<td>"+t.toLocaleDateString()+"<br>"+t.toLocaleTimeString()+"</td>"+
 					"<td class='announcement-contents'>"+data.Announcements[i].contents+"</td>"+
-					"<td><center><span class='delete'></span> <span class='edit-icon'></center></td>"+
+					"<td><center><span class='delete'></span> <span class='edit-icon'></span></center></td>"+
 				"</tr>"
 			);
 		}
