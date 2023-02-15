@@ -1,8 +1,10 @@
 from app import *
+
 @app.route("/api/user/create", methods=["POST"])
 @login_required
 def api_user_create():
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
@@ -19,6 +21,7 @@ def api_user_create():
 @login_required
 def api_user_list():
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
@@ -34,6 +37,7 @@ def api_user_list():
 @login_required
 def api_user_delete(cardID):
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
