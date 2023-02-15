@@ -141,3 +141,19 @@ class Attendance(db.Model):
 	def __init__(self, user=0, event=0):
 		self.user  = user
 		self.event = event
+
+class Announcement(db.Model):
+	"""
+	Simple timestamp and HTML contents.
+	"""
+
+	__tablename__ = "announcements"
+
+	id        = db.Column(db.Integer, primary_key=True)
+	timestamp = db.Column(db.Integer     , unique=False, nullable=False)
+	contents  = db.Column(db.String(2048), unique=False, nullable=False)
+
+	def __init__(self, timestamp=0, contents=""):
+		self.timestamp = timestamp
+		self.contents  = contents
+

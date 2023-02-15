@@ -41,6 +41,22 @@ def admin_change_password():
 		return redirect(url_for("index"))
 	return render_template("admin/change-password.html")
 
+@app.route("/admin/announcements/manage", methods=["GET"])
+@login_required
+def admin_announcements_manage():
+
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/announcements/manage.html")
+
+@app.route("/admin/announcements/create", methods=["GET"])
+@login_required
+def admin_announcements_create():
+
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/announcements/create.html")
+
 @app.route("/admin/users", methods=["GET"])
 @login_required
 def admin_users():

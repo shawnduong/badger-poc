@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Badger</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="shortcut icon" type="image/png" href="/static/png/favicon.png">
+</head>
+
+<body>
+
+	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
+	<script src="/static/js/create-announcement.js" defer></script>
+
+	<a href="/admin/announcements/manage">&#8592; Return to announcement management panel</a>
+	<h1>Create Announcement</h1>
+
+	<div id="announcement-creation-entry">
+		<form id="announcement-creation-form">
+			<label for="announcement-creation-content">Content:</label><br>
+			<textarea id="announcement-creation-content" name="announcement-creation-content" rows=4 style="width:100%"></textarea>
+			<button type="button" id="announcement-creation-preview-button">Preview</button>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+	<div id="announcement-creation-preview">
+		<p>Preview:</p>
+		<span id="announcement-creation-preview-content">
+		</span>
+	</div>
+
+</body>

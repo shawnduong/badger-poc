@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Badger</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="shortcut icon" type="image/png" href="/static/png/favicon.png">
+</head>
+
+<body>
+
+	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
+	<script src="/static/js/manage-announcements.js" defer></script>
+
+	<a href="/admin">&#8592; Return to management panel</a>
+	<h1>Manage Announcements</h1>
+
+	<div id="announcement-table">
+		<a href="/admin/announcements/create">Create a New Announcement</a>
+		<h3>All Announcements</h3>
+		<table id="announcement-table-data" style="width: 100%">
+			<tr class="table-header">
+				<th style="width: 6em">Timestamp</th>
+				<th>Contents</th>
+				<th style="width: 3em">Actions</th>
+			</tr>
+		</table>
+	</div>
+
+</body>
