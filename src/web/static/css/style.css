@@ -92,3 +92,7 @@ th, td {
 #points {
 	font-size: 1.5em;
 }
+
+#announcements-expand-toggle:hover {
+	cursor: pointer;
+}

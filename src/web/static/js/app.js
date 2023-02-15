@@ -1,4 +1,5 @@
 let lastUpdatePoints = null;
+let lastUpdateAnnouncements = null;
 
 /* Continuously update the page via AJAX. */
 function refresh()
@@ -9,6 +10,35 @@ function refresh()
 		if (data.User.email == null) data.User.email = "Not set";
 		$("#name").text(data.User.name);
 		$("#email").text(data.User.email);
+	});
+
+	$.getJSON("/api/announcement/list", function (data)
+	{
+		let dataStr = JSON.stringify(data.Announcements);
+
+		if (lastUpdateAnnouncements != dataStr)
+		{
+			let a = data.Announcements;
+			lastUpdateAnnouncements = dataStr;
+
+			$("#announcements-list").empty();
+
+			if (a.length <= 3)  $("#announcements-expand-toggle").attr("hidden", true);
+			else                $("#announcements-expand-toggle").attr("hidden", false);
+
+			for (let i = 0; i < 3; i++)
+			{
+				if (i == a.length)  break;
+
+				let t = new Date(a[i].timestamp);
+				let time =
+					t.toLocaleDateString().slice(0, -5)+" "+
+					t.toLocaleTimeString().slice(0, -6)+t.toLocaleTimeString().slice(-2);
+				$("#announcements-list").append(
+					"<p><b>"+time+"</b> "+a[i].contents+"</p>"
+				);
+			}
+		}
 	});
 };
 function refresh_loop()
