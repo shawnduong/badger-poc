@@ -50,11 +50,13 @@ $("#user-create-form").submit(function()
 		type: "POST",
 		url: "/api/user/create",
 		data: {"cardID": $("#cardID").val()},
-		success: function() {
+		success: function()
+		{
 			$("#form-response").html("<span style='color: green;'>User "+$("#cardID").val()+" created.</span>")
 			$("#cardID").val("");
 		},
-		error: function() {
+		error: function()
+		{
 			$("#form-response").html("<span style='color: red;'>Action failed.</span>")
 		}
 	});

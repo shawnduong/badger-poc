@@ -36,7 +36,8 @@ $("#name-edit-form").submit(function()
 		type: "POST",
 		url: "/api/user/edit/name",
 		data: {"name": $("#name-form").val()},
-		success: function() {
+		success: function()
+		{
 			refresh();
 			$("#name-container").attr("hidden", false);
 			$("#name-edit-container").attr("hidden", true);
@@ -63,7 +64,8 @@ $("#email-edit-form").submit(function()
 		type: "POST",
 		url: "/api/user/edit/email",
 		data: {"email": $("#email-form").val()},
-		success: function() {
+		success: function()
+		{
 			refresh();
 			$("#email-container").attr("hidden", false);
 			$("#email-edit-container").attr("hidden", true);
