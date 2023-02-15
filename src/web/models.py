@@ -100,8 +100,6 @@ class Event(db.Model):
 
 	id       = db.Column(db.Integer, primary_key=True)
 
-	# eventID is the MFC UID (4 or 7 bytes).
-	eventID  = db.Column(db.Integer    , unique=True , nullable=False)
 	points   = db.Column(db.Integer    , unique=False, nullable=False)
 	title    = db.Column(db.String(256), unique=False, nullable=False)
 	about    = db.Column(db.String(256), unique=False, nullable=False)
@@ -111,13 +109,12 @@ class Event(db.Model):
 	end      = db.Column(db.Integer    , unique=False, nullable=False)
 	weblink  = db.Column(db.String(256), unique=False, nullable=True )
 
-	def __init__(self, eventID=0, points=0, title="", about="", room="",
-		author="", start=0, end=0, weblink=None):
+	def __init__(self, points=0, title="", about="", room="", author="",
+		start=0, end=0, weblink=None):
 		"""
 		Constructor method for Event type objects.
 		"""
 
-		self.eventID  = eventID
 		self.points   = points
 		self.title    = title
 		self.about    = about
