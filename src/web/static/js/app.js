@@ -1,3 +1,5 @@
+let lastUpdatePoints = null;
+
 /* Continuously update the page via AJAX. */
 function refresh()
 {

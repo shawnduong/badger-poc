@@ -84,3 +84,7 @@ th, td {
 	font: inherit;
 	outline: inherit;
 }
+
+#points {
+	font-size: 1.5em;
+}

@@ -56,6 +56,24 @@
 		</table>
 	</div>
 
+	<div id="announcements">
+		<h3>Announcements</h3>
+	</div>
+
+	<div id="upcoming-events">
+		<h3>Upcoming Events</h3>
+	</div>
+
+	<div id="badge-info">
+		<h3>Badge Info</h3>
+		<p>You have <span id="points">0</span> points.</p>
+	</div>
+
+	<div id="rewards">
+		<h3>Rewards</h3>
+		<p>See an organizer to claim your rewards.</p>
+	</div>
+
 	<script>
 		let v = {{ current_user.cardID }};
 		$("#cardID").html(v.toString(16).padStart(8, "0"));
