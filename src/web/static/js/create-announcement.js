@@ -21,7 +21,18 @@ $("#announcement-creation-form").submit(function()
 });
 
 /* Announcement preview. */
-$("#announcement-creation-preview-button").click(function()
+function update_preview()
 {
-	alert("Not implemented yet.");
-});
+	let content = $("#announcement-creation-content").val();
+	let t = new Date(Date.now());
+	let time = t.toLocaleDateString().slice(0, -5)+" "+
+		t.toLocaleTimeString().slice(0, -6)+t.toLocaleTimeString().slice(-2);
+	$("#announcement-creation-preview-content").html("<p><b>"+time+"</b> "+content+"</p>");
+}
+function update_preview_loop()
+{
+	update_preview();
+	setTimeout(update_preview_loop, 100);
+}
+
+$(document).ready(function() { update_preview_loop(); });
