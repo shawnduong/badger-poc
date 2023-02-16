@@ -1,7 +1,7 @@
 /* Announcement edit submission. */
 $("#announcement-edit-form").submit(function()
 {
-	if (!confirm("Are you sure you want to publish this edit?"))  return;
+	if (!confirm("Are you sure you want to publish this edit?"))  return false;
 
 	$.ajax({
 		type: "POST",
