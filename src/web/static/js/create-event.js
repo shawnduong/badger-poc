@@ -35,7 +35,7 @@ function update_preview()
 	/* Update the page preview. */
 	$("#event-page-title").html(title);
 	$("#event-page-author").html(author);
-	$("#event-page-room").html(locate);
+	$("#event-page-location").html(locate);
 	$("#event-page-duration").html(lengthStr);
 	$("#event-page-points").html(points);
 	$("#event-page-description").html(description);
