@@ -79,16 +79,16 @@ def api_event_list():
 				"status": status
 			})
 
-			# Guarantee time order so that the earliest event is index 0.
-			sortedEvents = [{"start":0}, {"start":2**32}]
+		# Guarantee time order so that the earliest event is index 0.
+		sortedEvents = [{"start":0}, {"start":2**32}]
 
-			for e in events:
-				for i in range(len(sortedEvents)-1):
-					if e["start"] > sortedEvents[i]["start"] and e["start"] < sortedEvents[i+1]["start"]:
-						sortedEvents.insert(i+1, e)
-						break
+		for e in events:
+			for i in range(len(sortedEvents)-1):
+				if e["start"] > sortedEvents[i]["start"] and e["start"] < sortedEvents[i+1]["start"]:
+					sortedEvents.insert(i+1, e)
+					break
 
-			sortedEvents = sortedEvents[::-1]
+		sortedEvents = sortedEvents[::-1]
 
 		return {"Response": "200 OK", "Events": sortedEvents[1:-1]}, 200
 
