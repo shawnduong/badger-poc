@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Manage Events</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="shortcut icon" type="image/png" href="/static/png/favicon.png">
+</head>
+
+<body>
+
+	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
+	<script src="/static/js/manage-events.js" defer></script>
+
+	<a class="nodecor" href="/admin">&#8592; Return to management panel</a>
+	<h1>Manage Events</h1>
+
+	<div id="announcement-table">
+		<a href="/admin/events/create">Create a New Event</a>
+		<h3>All Events</h3>
+		<table id="events-table-data" style="width: 100%">
+			<tr class="table-header">
+				<th style="width: 7em">Time</th>
+				<th style="width: 4em">Length</th>
+				<th style="width: 4em">Location</th>
+				<th>Title</th>
+				<th style="width: 3em">Info</th>
+				<th style="width: 3em">Actions</th>
+			</tr>
+			<tr>
+				<td>2/15 12:49AM</td>
+				<td>1h30m</td>
+				<td>SSB 123</td>
+				<td>Satanic Sacrifices for Beginners</td>
+				<td><center><h3><a class="nodecor">&gt;&gt;</a></h3></center></td>
+				<td><center><span class='delete'></span> <span class='edit-icon'></span></center></td>
+			</tr>
+		</table>
+	</div>
+
+</body>

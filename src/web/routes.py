@@ -14,6 +14,7 @@ def index():
 @login_required
 def application():
 
+	# Admin redirect to admin panel.
 	if current_user.acctType == 1:
 		return redirect(url_for("admin"))
 	return render_template("app.html")
@@ -29,6 +30,7 @@ def admin_login():
 @login_required
 def admin():
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return redirect(url_for("index"))
 	return render_template("admin/admin.html")
@@ -37,6 +39,7 @@ def admin():
 @login_required
 def admin_change_password():
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return redirect(url_for("index"))
 	return render_template("admin/change-password.html")
@@ -45,6 +48,7 @@ def admin_change_password():
 @login_required
 def admin_announcements_manage():
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return redirect(url_for("index"))
 	return render_template("admin/announcements/manage.html")
@@ -53,6 +57,7 @@ def admin_announcements_manage():
 @login_required
 def admin_announcements_create():
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return redirect(url_for("index"))
 	return render_template("admin/announcements/create.html")
@@ -61,6 +66,7 @@ def admin_announcements_create():
 @login_required
 def admin_announcements_edit(id):
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return redirect(url_for("index"))
 
@@ -68,10 +74,29 @@ def admin_announcements_edit(id):
 	return render_template("admin/announcements/edit.html", id=id,
 		contents=a.contents, timestamp=a.timestamp)
 
+@app.route("/admin/events/manage", methods=["GET"])
+@login_required
+def admin_events_manage():
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/events/manage.html")
+
+@app.route("/admin/events/create", methods=["GET"])
+@login_required
+def admin_events_create():
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/events/create.html")
+
 @app.route("/admin/users", methods=["GET"])
 @login_required
 def admin_users():
 
+	# Admin only.
 	if current_user.acctType != 1:
 		return redirect(url_for("index"))
 	return render_template("admin/users.html")
