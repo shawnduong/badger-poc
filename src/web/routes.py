@@ -92,6 +92,37 @@ def admin_events_create():
 		return redirect(url_for("index"))
 	return render_template("admin/events/create.html")
 
+@app.route("/admin/events/edit/<id>", methods=["GET"])
+@login_required
+def admin_events_edit(id):
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+
+	e = Event.query.filter_by(id=id).first()
+
+	hours = 0
+	minutes = 0
+
+	if (n:=(e.duration // 3600)) > 0:
+		hours = n
+	if (n:=((e.duration % 3600) // 60)) > 0:
+		minutes = n
+
+	return render_template("admin/events/edit.html",
+		id=id,
+		title=e.title,
+		author=e.author,
+		room=e.room,
+		start=e.start,
+		hours=hours,
+		minutes=minutes,
+		points=e.points,
+		weblink=e.weblink,
+		description=e.description
+	)
+
 @app.route("/admin/users", methods=["GET"])
 @login_required
 def admin_users():

@@ -53,3 +53,10 @@ $(document).on("click", ".delete", function()
 		}
 	});
 });
+
+/* Edit an event. */
+$(document).on("click", ".edit-icon", function()
+{
+	id = $(this).parent().parent().parent()[0].id;
+	location.href="/admin/events/edit/"+id;
+});
