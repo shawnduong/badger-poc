@@ -10,7 +10,6 @@ function update()
 		if (lastUpdate != dataStr)
 		{
 			lastUpdate = dataStr;
-			console.log("Updating");
 
 			$("#user-table-data").empty();
 			$("#user-table-data:last-child").append(

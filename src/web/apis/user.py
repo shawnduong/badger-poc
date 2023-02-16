@@ -78,7 +78,11 @@ def api_user_info():
 	try:
 		return {
 			"Response": "200 OK",
-			"User": {"name": current_user.name, "email": current_user.email}
+			"User": {
+				"name": current_user.name,
+				"email": current_user.email,
+				"points": current_user.points,
+			}
 		}, 200
 	except:
 		return {"Response": "500 Internal Server Error"}, 500

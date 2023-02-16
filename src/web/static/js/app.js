@@ -1,3 +1,4 @@
+let lastUpdateInfo = null;
 let lastUpdatePoints = null;
 let lastUpdateAnnouncements = null;
 let lastUpdateEvents = null;
@@ -9,10 +10,18 @@ function refresh()
 {
 	$.getJSON("/api/user/info", function (data)
 	{
-		if (data.User.name == null) data.User.name = "Not set";
-		if (data.User.email == null) data.User.email = "Not set";
-		$("#name").text(data.User.name);
-		$("#email").text(data.User.email);
+		let dataStr = JSON.stringify(data.Announcements);
+
+		if (lastUpdateInfo != dataStr)
+		{
+			lastUpdateInfo = dataStr;
+
+			if (data.User.name == null) data.User.name = "Not set";
+			if (data.User.email == null) data.User.email = "Not set";
+			$("#name").text(data.User.name);
+			$("#email").text(data.User.email);
+			$("#points").text(data.User.points);
+		}
 	});
 
 	$.getJSON("/api/announcement/list", function (data)

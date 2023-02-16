@@ -162,6 +162,15 @@ def admin_events_edit(id):
 		description=e.description
 	)
 
+@app.route("/admin/codes", methods=["GET"])
+@login_required
+def admin_codes():
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/codes.html")
+
 @app.route("/admin/users", methods=["GET"])
 @login_required
 def admin_users():

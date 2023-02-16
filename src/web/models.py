@@ -146,11 +146,28 @@ class Announcement(db.Model):
 
 	__tablename__ = "announcements"
 
-	id  = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 	timestamp = db.Column(db.Integer     , unique=False, nullable=False)
 	contents  = db.Column(db.String(4096), unique=False, nullable=False)
 
 	def __init__(self, timestamp=0, contents=""):
 		self.timestamp = timestamp
 		self.contents  = contents
+
+class Code(db.Model):
+	"""
+	Points addition code.
+	"""
+
+	__tablename__ = "codes"
+
+	id = db.Column(db.Integer, primary_key=True)
+	code  = db.Column(db.String(64) , unique=True , nullable=False)
+	value = db.Column(db.Integer    , unique=False, nullable=False)
+	note  = db.Column(db.String(128), unique=True , nullable=False)
+
+	def __init__(self, code="", value=0, note=""):
+		self.code  = code
+		self.value = value
+		self.note  = note
 
