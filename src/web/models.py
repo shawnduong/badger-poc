@@ -98,31 +98,31 @@ class Event(db.Model):
 
 	__tablename__ = "events"
 
-	id       = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 
-	points   = db.Column(db.Integer    , unique=False, nullable=False)
-	title    = db.Column(db.String(256), unique=False, nullable=False)
-	about    = db.Column(db.String(256), unique=False, nullable=False)
-	room     = db.Column(db.String(256), unique=False, nullable=False)
-	author   = db.Column(db.String(256), unique=False, nullable=False)
-	start    = db.Column(db.Integer    , unique=False, nullable=False)
-	end      = db.Column(db.Integer    , unique=False, nullable=False)
-	weblink  = db.Column(db.String(256), unique=False, nullable=True )
+	points      = db.Column(db.Integer    , unique=False, nullable=False)
+	title       = db.Column(db.String(256), unique=False, nullable=False)
+	room        = db.Column(db.String(256) , unique=False, nullable=False)
+	author      = db.Column(db.String(256) , unique=False, nullable=False)
+	start       = db.Column(db.Integer     , unique=False, nullable=False)
+	duration    = db.Column(db.Integer     , unique=False, nullable=False)
+	weblink     = db.Column(db.String(256) , unique=False, nullable=True )
+	description = db.Column(db.String(4096), unique=False, nullable=False)
 
-	def __init__(self, points=0, title="", about="", room="", author="",
-		start=0, end=0, weblink=None):
+	def __init__(self, points=0, title="", room="", author="",
+		start=0, duration=0, weblink=None, description=""):
 		"""
 		Constructor method for Event type objects.
 		"""
 
-		self.points   = points
-		self.title    = title
-		self.about    = about
-		self.room     = room
-		self.author   = author
-		self.start    = start
-		self.end      = end
-		self.weblink  = weblink
+		self.points      = points
+		self.title       = title
+		self.room        = room
+		self.author      = author
+		self.start       = start
+		self.duration    = duration
+		self.weblink     = weblink
+		self.description = description 
 
 class Attendance(db.Model):
 	"""
@@ -131,7 +131,7 @@ class Attendance(db.Model):
 
 	__tablename__ = "attendances"
 
-	id    = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
 	event = db.Column(db.Integer, db.ForeignKey(Event.id), unique=False, nullable=False)
 
@@ -146,9 +146,9 @@ class Announcement(db.Model):
 
 	__tablename__ = "announcements"
 
-	id        = db.Column(db.Integer, primary_key=True)
+	id  = db.Column(db.Integer, primary_key=True)
 	timestamp = db.Column(db.Integer     , unique=False, nullable=False)
-	contents  = db.Column(db.String(2048), unique=False, nullable=False)
+	contents  = db.Column(db.String(4096), unique=False, nullable=False)
 
 	def __init__(self, timestamp=0, contents=""):
 		self.timestamp = timestamp

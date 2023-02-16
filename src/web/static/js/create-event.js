@@ -1,3 +1,41 @@
+/* Event submission. */
+$("#event-creation-form").submit(function()
+{
+	if (!confirm("Are you sure you want to publish this event?"))  return false;
+
+	let durationH = $("#event-duration-hours").val();
+	let durationM = $("#event-duration-minutes").val();
+	let lengthStr = "";
+	if (durationH > 0) { lengthStr += durationH +"h"};
+	if (durationM > 0) { lengthStr += durationM +"m"};
+
+	$.ajax({
+		type: "POST",
+		url: "/api/event/create",
+		data: {
+			"title": $("#event-title").val(),
+			"author": $("#event-author").val(),
+			"location": $("#event-location").val(),
+			"start": $("#event-start").val(),
+			"duration": lengthStr,
+			"points": $("#event-points").val(),
+			"link": $("#event-weblink").val(),
+			"description": $("#event-description").val(),
+			"timezone": $("#event-timezone").val()
+		},
+		success: function()
+		{
+			location.href="/admin/events/manage"
+		},
+		error: function()
+		{
+			alert("Unexpected error occurred.");
+		}
+	});
+
+	return false;
+});
+
 /* Event preview. */
 function update_preview()
 {
@@ -14,7 +52,6 @@ function update_preview()
 	let lengthStr = "";
 	if (durationH > 0) { lengthStr += durationH +"h"};
 	if (durationM > 0) { lengthStr += durationM +"m"};
-
 
 	if (start != "")
 	{
