@@ -13,13 +13,34 @@ $(document).ready(function()
 					"<td>"+dateStr+" "+timeStr+"</td>"+
 					"<td>"+data.Events[i].length+"</td>"+
 					"<td>"+data.Events[i].location+"</td>"+
-					"<td>"+data.Events[i].title+"</td>"+
+					"<td class='event-title'>"+data.Events[i].title+"</td>"+
 					"<td><center><h3><a class='nodecor' href='/events/"+data.Events[i].id+
 						"'>&gt;&gt;</a></h3></center></td>"+
 					"<td><center><span class='delete'></span> <span class='edit-icon'>"+
 						"</span></center></td>"+
 				"</tr>"
 			);
+		}
+	});
+});
+
+/* Confirm before deleting an event. */
+$(document).on("click", ".delete", function()
+{
+	id = $(this).parent().parent().parent()[0].id;
+	text = $(this).parent().parent().parent().find(".event-title").text();
+	if (!confirm("Are you sure you want to delete \""+text+"\"?"))  return;
+
+	$.ajax({
+		type: "POST",
+		url: "/api/event/delete/"+id,
+		success: function()
+		{
+			location.href="/admin/events/manage";
+		},
+		error: function()
+		{
+			alert("Unexpected error occurred.");
 		}
 	});
 });

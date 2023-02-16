@@ -72,3 +72,19 @@ def api_event_list():
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/event/delete/<id>", methods=["POST"])
+@login_required
+def api_event_delete(id):
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		id = int(id)
+		event = Event.query.filter_by(id=id).delete()
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
