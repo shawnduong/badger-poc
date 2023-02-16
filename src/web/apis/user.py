@@ -76,6 +76,7 @@ def api_user_edit_email():
 def api_user_info():
 
 	try:
+		current_user.update_points()
 		return {
 			"Response": "200 OK",
 			"User": {
@@ -84,6 +85,6 @@ def api_user_info():
 				"points": current_user.points,
 			}
 		}, 200
-	except:
+	except Exception as e:
 		return {"Response": "500 Internal Server Error"}, 500
 

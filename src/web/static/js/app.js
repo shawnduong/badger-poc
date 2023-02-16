@@ -10,7 +10,7 @@ function refresh()
 {
 	$.getJSON("/api/user/info", function (data)
 	{
-		let dataStr = JSON.stringify(data.Announcements);
+		let dataStr = JSON.stringify(data.User);
 
 		if (lastUpdateInfo != dataStr)
 		{
@@ -193,6 +193,26 @@ $("#email-edit-form").submit(function()
 			refresh();
 			$("#email-container").attr("hidden", false);
 			$("#email-edit-container").attr("hidden", true);
+		}
+	});
+
+	return false;
+});
+
+/* Code submission dialogue. */
+$("#code-submit-form").submit(function()
+{
+	$.ajax({
+		type: "POST",
+		url: "/api/code/submit/"+$("#code").val(),
+		success: function()
+		{
+			$("#code").val("");
+			refresh();
+		},
+		error: function()
+		{
+			alert("Invalid code.");
 		}
 	});
 

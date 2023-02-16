@@ -83,10 +83,15 @@ class Account(UserMixin, db.Model):
 
 		self.points = 0
 		attendances = Attendance.query.filter_by(user=self.id).all()
+		redemptions = CodeRedemption.query.filter_by(user=self.id).all()
 
 		for attendance in attendances:
 			event = Event.query.filter_by(id=attendance.event).first()
 			self.points += event.points
+
+		for redemption in redemptions:
+			code = Code.query.filter_by(id=redemption.code).first()
+			self.points += code.value
 
 		db.session.commit()
 
@@ -170,4 +175,19 @@ class Code(db.Model):
 		self.code  = code
 		self.value = value
 		self.note  = note
+
+class CodeRedemption(db.Model):
+	"""
+	Relate an Account to a Code.
+	"""
+
+	__tablename__ = "coderedemptions"
+
+	id = db.Column(db.Integer, primary_key=True)
+	user = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
+	code = db.Column(db.Integer, db.ForeignKey(Code.id), unique=False, nullable=False)
+
+	def __init__(self, user=0, code=0):
+		self.user = user
+		self.code = code
 
