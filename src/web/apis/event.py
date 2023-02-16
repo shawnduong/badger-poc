@@ -1,3 +1,5 @@
+import time
+
 from datetime import datetime
 
 from app import *
@@ -50,6 +52,7 @@ def api_event_create():
 def api_event_list():
 
 	try:
+
 		events = []
 
 		for e in Event.query.all():
@@ -65,10 +68,23 @@ def api_event_list():
 				"start": e.start,
 				"length": length,
 				"location": e.room,
-				"title": e.title
+				"title": e.title,
+				"completed": completed
 			})
 
-		return {"Response": "200 OK", "Events": events}, 200
+			# Guarantee time order so that the earliest event is index 0.
+			sortedEvents = [{"start":0}, {"start":2**32}]
+
+			for e in events:
+				for i in range(len(sortedEvents)-1):
+					if e["start"] > sortedEvents[i]["start"] and e["start"] < sortedEvents[i+1]["start"]:
+						sortedEvents.insert(i+1, e)
+						break
+
+			sortedEvents = sortedEvents[::-1]
+
+		return {"Response": "200 OK", "Events": sortedEvents[1:-1]}, 200
+
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
