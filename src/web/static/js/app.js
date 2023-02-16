@@ -1,6 +1,8 @@
 let lastUpdatePoints = null;
 let lastUpdateAnnouncements = null;
+let lastUpdateEvents = null;
 let ahidden = true;
+let ehidden = true;
 
 /* Continuously update the page via AJAX. */
 function refresh()
@@ -46,6 +48,81 @@ function refresh()
 				if (ahidden)  $("#announcements-list").append("<p class='aextra' hidden><b>"+time+"</b> "+a[i].contents+"</p>");
 				else          $("#announcements-list").append("<p class='aextra'><b>"+time+"</b> "+a[i].contents+"</p>");
 			}
+		}
+	});
+
+	$.getJSON("/api/event/list", function (data)
+	{
+		let dataStr = JSON.stringify(data.Events);
+
+		if (lastUpdateEvents != dataStr)
+		{
+			var e = data.Events;
+			e.reverse();
+			lastUpdateEvents = dataStr;
+
+			$("#events-table-data").empty();
+			$("#events-table-data").append(
+				"<tr class='table-header'>"+
+					"<th style='width: 7em'>Time</th>"+
+					"<th style='width: 4em'>Length</th>"+
+					"<th style='width: 4em'>Location</th>"+
+					"<th>Title</th>"+
+				"<th style='width: 3em'>Info</th>"
+			);
+
+			let active = 0;
+			let hidden = 0;
+
+			for (let i = 0; i < e.length; i++)
+			{
+				let t = new Date(e[i].start * 1000);
+				let dateStr = t.toLocaleDateString().slice(0, -5);
+				let timeStr = t.toLocaleTimeString().slice(0, -6) + t.toLocaleTimeString().slice(-2);
+				let stat = "";
+				let vis = "";
+
+				if (e[i].status == 2)
+				{
+					stat = "event-completed eextra";
+					vis = "hidden";
+					hidden++;
+				}
+				else if (e[i].status == 1)
+				{
+					stat = "event-happening";
+					active++;
+				}
+				else
+				{
+					/* Only 5 shown at once max. */
+					if (active >= 5)
+					{
+						stat = "eextra";
+						vis = "hidden";
+						hidden++;
+					}
+					else
+					{
+						stat = "";
+						active++;
+					}
+				}
+
+				$("#events-table-data").append(
+					"<tr id='"+e[i].id+"' class='"+stat+"' "+vis+">" +
+						"<td>"+dateStr+" "+timeStr+"</td>"+
+						"<td>"+e[i].length+"</td>"+
+						"<td>"+e[i].location+"</td>"+
+						"<td class='event-title'>"+e[i].title+"</td>"+
+						"<td><center><h3><a class='nodecor' href='/event/"+e[i].id+
+							"'>&gt;&gt;</a></h3></center></td>"+
+					"</tr>"
+				);
+			}
+
+			if (hidden > 0)  $("#events-expand-toggle").attr("hidden", false);
+			else             $("#events-expand-toggle").attr("hidden", true);
 		}
 	});
 };
@@ -127,5 +204,22 @@ $("#announcements-expand-toggle").click(function()
 		ahidden = true;
 		$(".aextra").each(function () { $(this).attr("hidden", true) });
 		$("#announcements-expand-toggle").text("Expand");
+	}
+});
+
+/* Un/hide events. */
+$("#events-expand-toggle").click(function()
+{
+	if (ehidden)
+	{
+		ehidden = false;
+		$(".eextra").each(function () { $(this).attr("hidden", false) });
+		$("#events-expand-toggle").text("Collapse");
+	}
+	else
+	{
+		ehidden = true;
+		$(".eextra").each(function () { $(this).attr("hidden", true) });
+		$("#events-expand-toggle").text("Expand");
 	}
 });

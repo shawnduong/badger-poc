@@ -113,6 +113,10 @@ th, td {
 	cursor: pointer;
 }
 
+#events-expand-toggle:hover {
+	cursor: pointer;
+}
+
 #event-page h1, #event-page h2, #event-page h3 {
 	display: inline;
 	padding-right: 0.5em;
