@@ -120,7 +120,7 @@ $("#announcements-expand-toggle").click(function()
 	{
 		ahidden = false;
 		$(".aextra").each(function () { $(this).attr("hidden", false) });
-		$("#announcements-expand-toggle").text("Unexpand");
+		$("#announcements-expand-toggle").text("Collapse");
 	}
 	else
 	{
