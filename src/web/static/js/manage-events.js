@@ -23,7 +23,7 @@ $(document).ready(function()
 					"<td>"+data.Events[i].length+"</td>"+
 					"<td>"+data.Events[i].location+"</td>"+
 					"<td class='event-title'>"+data.Events[i].title+"</td>"+
-					"<td><center><h3><a class='nodecor' href='/events/"+data.Events[i].id+
+					"<td><center><h3><a class='nodecor' href='/event/"+data.Events[i].id+
 						"'>&gt;&gt;</a></h3></center></td>"+
 					"<td><center><span class='delete'></span> <span class='edit-icon'>"+
 						"</span></center></td>"+

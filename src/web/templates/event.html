@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>{{ title }}</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="shortcut icon" type="image/png" href="/static/png/favicon.png">
+</head>
+
+<body>
+
+	<a class="nodecor" href="{{ backlink }}">&#8592; Return to previous page</a>
+
+	<div id="event-page">
+		<br>
+		<h1>{{ title }}</h1>
+		<h3>by {{ author }}</h3>
+		<h1>|</h1>
+		<h3>{{ location }} @ <span id="event-start"></span></h3>
+		<br>
+		<p><b>Duration: {{ duration }} - Reward: {{ points }} points</b></p>
+		{% if weblink != "" %}
+			<a href="{{ weblink }}" target="_blank">External URL</a>
+		{% endif %}
+		<p>{{ description }}</p>
+	</div>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script>
+		let t = new Date({{ start }}*1000);
+		let dateStr = t.toLocaleDateString().slice(0, -5);
+		let timeStr = t.toLocaleTimeString().slice(0, -6) + t.toLocaleTimeString().slice(-2);
+		$("#event-start").text(dateStr+" "+timeStr);
+	</script>
+
+</body>
+
+</html>

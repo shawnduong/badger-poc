@@ -19,6 +19,45 @@ def application():
 		return redirect(url_for("admin"))
 	return render_template("app.html")
 
+@app.route("/event/<id>", methods=["GET"])
+@login_required
+def event(id):
+
+	if current_user.acctType == 1:
+		backlink = "/admin/events/manage"
+	else:
+		backlink = "/app"
+
+	try:
+
+		id = int(id)
+		e = Event.query.filter_by(id=id).first()
+
+		length = ""
+		if (n:=(e.duration // 3600)) > 0:
+			length += f"{n}h"
+		if (n:=((e.duration % 3600) // 60)) > 0:
+			length += f"{n}m"
+
+		weblink = ""
+		if e.weblink != None:
+			weblink = e.weblink
+
+		return render_template("event.html",
+			backlink=backlink,
+			title=e.title,
+			author=e.author,
+			location=e.room,
+			start=e.start,
+			duration=length,
+			points=e.points,
+			weblink=weblink,
+			description=e.description
+		)
+
+	except:
+		pass  # Automatic 404
+
 @app.route("/admin/login", methods=["GET"])
 def admin_login():
 
