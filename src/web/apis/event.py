@@ -44,3 +44,31 @@ def api_event_create():
 
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/event/list", methods=["GET"])
+@login_required
+def api_event_list():
+
+	try:
+		events = []
+
+		for e in Event.query.all():
+
+			length = ""
+			if (n:=(e.duration // 3600)) > 0:
+				length += f"{n}h"
+			if (n:=((e.duration % 3600) // 60)) > 0:
+				length += f"{n}m"
+
+			events.append({
+				"id": e.id,
+				"start": e.start,
+				"length": length,
+				"location": e.room,
+				"title": e.title
+			})
+
+		return {"Response": "200 OK", "Events": events}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
