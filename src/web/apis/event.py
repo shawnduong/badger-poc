@@ -111,3 +111,46 @@ def api_event_delete(id):
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/event/edit/<id>", methods=["POST"])
+@login_required
+def api_event_edit(id):
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+
+		epoch = datetime(1970, 1, 1).replace(tzinfo=None)
+		timezone = request.form["timezone"].replace(":", "")
+		start = int((datetime.strptime(
+			f"{request.form['start']} {timezone}",
+			"%Y-%m-%dT%H:%M %z"
+		)).timestamp())
+
+		durstr = request.form["duration"]
+		duration = 0
+
+		if "h" in request.form["duration"]:
+			duration += 3600 * int(durstr.split("h")[0])
+			durstr = durstr.split("h")[1]
+		if "m" in request.form["duration"]:
+			duration += 60 * int(durstr.split("m")[0])
+
+		id = int(id)
+		event = Event.query.filter_by(id=id).first()
+		event.points = int(request.form["points"])
+		event.title = request.form["title"]
+		event.room = request.form["location"]
+		event.author = request.form["author"]
+		event.start = start
+		event.duration = duration
+		event.weblink = request.form["link"]
+		event.description = request.form["description"]
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+
+	except Exception as e:
+		print(e)
+		return {"Response": "500 Internal Server Error"}, 500
+
