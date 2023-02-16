@@ -8,8 +8,17 @@ $(document).ready(function()
 			let t = new Date(data.Events[i].start * 1000);
 			let dateStr = t.toLocaleDateString().slice(0, -5);
 			let timeStr = t.toLocaleTimeString().slice(0, -6) + t.toLocaleTimeString().slice(-2);
+			let stat = ""
+
+			if (data.Events[i].status == 2)
+				stat = "event-completed";
+			else if (data.Events[i].status == 1)
+				stat = "event-happening";
+			else
+				stat = "";
+
 			$("#events-table-data").append(
-				"<tr id='"+data.Events[i].id+"'>" +
+				"<tr id='"+data.Events[i].id+"' class='"+stat+"'>" +
 					"<td>"+dateStr+" "+timeStr+"</td>"+
 					"<td>"+data.Events[i].length+"</td>"+
 					"<td>"+data.Events[i].location+"</td>"+

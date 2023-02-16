@@ -63,13 +63,20 @@ def api_event_list():
 			if (n:=((e.duration % 3600) // 60)) > 0:
 				length += f"{n}m"
 
+			if int(time.time()) > e.start + e.duration:
+				status = 2  # Completed
+			elif int(time.time()) > e.start and int(time.time()) < e.start + e.duration:
+				status = 1  # Happening
+			else:
+				status = 0  # Not happened yet
+
 			events.append({
 				"id": e.id,
 				"start": e.start,
 				"length": length,
 				"location": e.room,
 				"title": e.title,
-				"completed": completed
+				"status": status
 			})
 
 			# Guarantee time order so that the earliest event is index 0.

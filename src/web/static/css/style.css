@@ -93,6 +93,18 @@ th, td {
 	cursor: pointer;
 }
 
+.event-completed {
+	background-color: #CCC;
+}
+
+.event-happening {
+	background-color: #98BF64;
+}
+
+.event-happening a {
+	color: #99EDC3;
+}
+
 #points {
 	font-size: 1.5em;
 }
