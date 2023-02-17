@@ -14,12 +14,12 @@ class Account(UserMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 
 	# type: 0 => user, 1 => admin, 2 => locator
-	type     = db.Column(db.Integer    , unique=False, nullable=False)
-	password = db.Column(db.String(256), unique=False, nullable=True )
-	uid      = db.Column(db.Integer    , unique=True , nullable=True )
-	name     = db.Column(db.String(256), unique=False, nullable=True )
-	email    = db.Column(db.String(256), unique=False, nullable=True )
-	points   = db.Column(db.Integer    , unique=False, nullable=True )
+	type      = db.Column(db.Integer    , unique=False, nullable=False)
+	password  = db.Column(db.String(256), unique=False, nullable=True )
+	uid       = db.Column(db.Integer    , unique=True , nullable=True )
+	name      = db.Column(db.String(256), unique=False, nullable=True )
+	email     = db.Column(db.String(256), unique=False, nullable=True )
+	points    = db.Column(db.Integer    , unique=False, nullable=True )
 
 	def __init__(self, type=0, password=None, uid=0, name=None, email=None, points=0):
 
@@ -81,60 +81,6 @@ class Account(UserMixin, db.Model):
 
 		db.session.commit()
 
-class Event(db.Model):
-
-	__tablename__ = "events"
-
-	id = db.Column(db.Integer, primary_key=True)
-
-	points      = db.Column(db.Integer     , unique=False, nullable=False)
-	title       = db.Column(db.String(256) , unique=False, nullable=False)
-	room        = db.Column(db.String(256) , unique=False, nullable=False)
-	author      = db.Column(db.String(256) , unique=False, nullable=False)
-	start       = db.Column(db.Integer     , unique=False, nullable=False)
-	duration    = db.Column(db.Integer     , unique=False, nullable=False)
-	weblink     = db.Column(db.String(256) , unique=False, nullable=True )
-	description = db.Column(db.String(4096), unique=False, nullable=False)
-
-	def __init__(self, points=0, title="", room="", author="", start=0, duration=0,
-		weblink=None, description=""):
-
-		self.points      = points
-		self.title       = title
-		self.room        = room
-		self.author      = author
-		self.start       = start
-		self.duration    = duration
-		self.weblink     = weblink
-		self.description = description 
-
-class Attendance(db.Model):
-	"""
-	Account <-> Event
-	"""
-
-	__tablename__ = "attendances"
-
-	id = db.Column(db.Integer, primary_key=True)
-
-	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
-	event = db.Column(db.Integer, db.ForeignKey(Event.id)  , unique=False, nullable=False)
-
-	def __init__(self, user=0, event=0):
-		self.user  = user
-		self.event = event
-
-	def check_ne(self, user, event):
-		"""
-		Return True if Attendance with user and event do not exist.
-		"""
-
-		try:
-			assert Attendance.query.filter_by(user=user, event=event).first() == None
-			return True
-		except:
-			return False
-
 class Code(db.Model):
 
 	__tablename__ = "codes"
@@ -176,6 +122,75 @@ class Submit(db.Model):
 			return True
 		except:
 			return False
+
+class Event(db.Model):
+
+	__tablename__ = "events"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+	points       = db.Column(db.Integer     , unique=False, nullable=False)
+	title        = db.Column(db.String(256) , unique=False, nullable=False)
+	room         = db.Column(db.String(256) , unique=False, nullable=False)
+	author       = db.Column(db.String(256) , unique=False, nullable=False)
+	start        = db.Column(db.Integer     , unique=False, nullable=False)
+	duration     = db.Column(db.Integer     , unique=False, nullable=False)
+	weblink      = db.Column(db.String(256) , unique=False, nullable=True )
+	description  = db.Column(db.String(4096), unique=False, nullable=False)
+
+	def __init__(self, points=0, title="", room="", author="", start=0, duration=0,
+		weblink=None, description=""):
+
+		self.points       = points
+		self.title        = title
+		self.room         = room
+		self.author       = author
+		self.start        = start
+		self.duration     = duration
+		self.weblink      = weblink
+		self.description  = description 
+
+class Attendance(db.Model):
+	"""
+	Account <-> Event
+	"""
+
+	__tablename__ = "attendances"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
+	event = db.Column(db.Integer, db.ForeignKey(Event.id)  , unique=False, nullable=False)
+
+	def __init__(self, user=0, event=0):
+		self.user  = user
+		self.event = event
+
+	def check_ne(self, user, event):
+		"""
+		Return True if Attendance with user and event do not exist.
+		"""
+
+		try:
+			assert Attendance.query.filter_by(user=user, event=event).first() == None
+			return True
+		except:
+			return False
+
+class Prize(db.Model):
+
+	__tablename__ = "prizes"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+	prize     = db.Column(db.String(256), unique=False, nullable=False)
+	value     = db.Column(db.Integer    , unique=False, nullable=False)
+	quantity  = db.Column(db.Integer    , unique=False, nullable=False)
+
+	def __init__(self, prize="", value=0, quantity=""):
+		self.prize     = prize
+		self.value     = prize
+		self.quantity  = prize
 
 class Announcement(db.Model):
 	"""
