@@ -66,7 +66,7 @@ def logout():
 
 	logout_user()
 
-	if current_user.acctType == 1:
+	if current_user.type == 1:
 		return render_template("admin/login.html")
 	else:
 		return render_template("index.html")
