@@ -9,9 +9,7 @@ def api_announcement_create():
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		timestamp = int(request.form["timestamp"])
-		assert len(request.form["content"]) <= 2048
-		announcement = Announcement(timestamp, request.form["content"])
+		announcement = Announcement(int(request.form["timestamp"]), request.form["content"])
 		db.session.add(announcement)
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
@@ -38,8 +36,7 @@ def api_announcement_delete(id):
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		id = int(id)
-		announcement = Announcement.query.filter_by(id=id).delete()
+		announcement = Announcement.query.filter_by(id=int(id)).delete()
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 	except:
@@ -54,8 +51,7 @@ def api_announcement_edit(id):
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		id = int(id)
-		announcement = Announcement.query.filter_by(id=id).first()
+		announcement = Announcement.query.filter_by(id=int(id)).first()
 		announcement.contents = request.form["contents"]
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
