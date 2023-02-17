@@ -208,6 +208,44 @@ class Redemption(db.Model):
 		self.user  = user
 		self.prize = prize
 
+class Stamp(db.Model):
+
+	__tablename__ = "stamps"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+	name = db.Column(db.String(512), unique=False, nullable=False)
+
+	def __init__(self, name=""):
+		self.name = name
+
+class Punch(db.Model):
+	"""
+	Account <-> Stamp
+	"""
+
+	__tablename__ = "punches"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
+	stamp = db.Column(db.Integer, db.ForeignKey(Stamp.id)  , unique=False, nullable=False)
+
+	def __init__(self, user=0, stamp=0):
+		self.user  = user
+		self.stamp = stamp
+
+	def check_ne(self, user, stamp):
+		"""
+		Return True if Punch with user and stamp do not exist.
+		"""
+
+		try:
+			assert Punch.query.filter_by(user=user, stamp=stamp).first() == None
+			return True
+		except:
+			return False
+
 class Announcement(db.Model):
 	"""
 	Simple timestamp and HTML contents.
@@ -222,32 +260,4 @@ class Announcement(db.Model):
 	def __init__(self, timestamp=0, contents=""):
 		self.timestamp = timestamp
 		self.contents  = contents
-
-class Stamp(db.Model):
-	"""
-	Once-redeemable freebies.
-	"""
-
-	__tablename__ = "stamps"
-
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(128), unique=False, nullable=False)
-
-	def __init__(self, name=0):
-		self.name = name
-
-class Stampings(db.Model):
-	"""
-	Relate an Account to a Stamp.
-	"""
-
-	__tablename__ = "stampings"
-
-	id = db.Column(db.Integer, primary_key=True)
-	user = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
-	stamp = db.Column(db.Integer, db.ForeignKey(Stamp.id), unique=False, nullable=False)
-
-	def __init__(self, user=0, stamp=0):
-		self.user = user
-		self.stamp = stamp
 
