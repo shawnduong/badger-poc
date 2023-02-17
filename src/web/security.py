@@ -51,9 +51,9 @@ def admin_password_change_api():
 
 	try:
 		assert bcrypt.checkpw(request.form["password-current"].encode(), current_user.password)
-		assert request.form["password-new"] == requst.form["password-confirm"]
+		assert request.form["password-new"] == request.form["password-confirm"]
 	except:
-		return render_template("admin/change-password.html", failed=True)
+		return render_template("admin/password/change.html", failed=True)
 
 	current_user.password = bcrypt.hashpw(request.form["password-new"].encode(), bcrypt.gensalt(4))
 	db.session.commit()
