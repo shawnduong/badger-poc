@@ -23,8 +23,8 @@ if Account.query.filter_by(name="admin", acctType=1).first() == None:
 	db.session.add(admin)
 	db.session.commit()
 
-# Authentication.
-from authentication import *
+# Security.
+from security import *
 
 # Website routes.
 from routes import *

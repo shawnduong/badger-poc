@@ -16,6 +16,7 @@ def load_user(id: int):
 @app.route("/login", methods=["POST"])
 def login():
 
+	# Passwordless card ID based login.
 	user = Account.get_user(request.form["cardID"])
 
 	if user == False:
@@ -28,6 +29,7 @@ def login():
 @app.route("/admin/login", methods=["POST"])
 def login_admin():
 
+	# Password based login.
 	user = Account.login(request.form["username"], request.form["password"])
 
 	if user == False:
@@ -37,18 +39,17 @@ def login_admin():
 	login_user(user)
 	return redirect(url_for("admin"))
 
-@app.route("/admin/change-password", methods=["POST"])
+@app.route("/admin/password/change", methods=["POST"])
 @login_required
-def change_password_admin():
+def admin_password_change():
 
-	if not bcrypt.checkpw(request.form["curr-password"].encode(), current_user.password):
+	try:
+		assert bcrypt.checkpw(request.form["password-current"].encode(), current_user.password)
+		assert request.form["password-new"] == requst.form["password-confirm"]
+	except:
 		return render_template("admin/change-password.html", failed=True)
 
-	if request.form["new-password"] != request.form["conf-password"]:
-		return render_template("admin/change-password.html", failed=True)
-
-	current_user.password = bcrypt.hashpw(request.form["new-password"].encode(),
-		bcrypt.gensalt(4))
+	current_user.password = bcrypt.hashpw(request.form["password-new"].encode(), bcrypt.gensalt(4))
 	db.session.commit()
 
 	return redirect(url_for("admin"))
@@ -57,10 +58,10 @@ def change_password_admin():
 @login_required
 def logout():
 
+	logout_user()
+
 	if current_user.acctType == 1:
-		logout_user()
 		return render_template("admin/login.html")
 	else:
-		logout_user()
 		return render_template("index.html")
 
