@@ -31,7 +31,7 @@ def print_help(path: str="main.py", alignmentWidth: int=16) -> None:
 	align = lambda s: s + ' '*(alignmentWidth-len(s))
 
 	print(f"Usage: {path} [ARGUMENTS] <IP> <PORT>")
-	print("Start the HackerPass web application interface.")
+	print("Start the Badger web application interface.")
 	print()
 
 	print("Help:")
