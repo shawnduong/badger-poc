@@ -1,6 +1,5 @@
-/* Load announcements from /api/announcement/list into #announcement-table. Load
-   up to n announcements and hide the rest. If n is negative, don't hide. */
-function load_announcements(n)
+/* Load announcements from /api/announcement/list into #announcement-table. */
+function load_announcements()
 {
 	$.getJSON("/api/announcement/list", function (d)
 	{
@@ -17,3 +16,6 @@ function load_announcements(n)
 		}
 	});
 }
+
+/* Load announcements from /api/announcement/list into #announcement-list. */
+//function load_announcementsl()
