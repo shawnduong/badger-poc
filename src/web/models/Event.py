@@ -14,11 +14,11 @@ class Event(db.Model):
 	author       = db.Column(db.String(256) , unique=False, nullable=False)
 	start        = db.Column(db.Integer     , unique=False, nullable=False)
 	duration     = db.Column(db.Integer     , unique=False, nullable=False)
-	weblink      = db.Column(db.String(256) , unique=False, nullable=True )
+	weblink      = db.Column(db.String(256) , unique=False, nullable=False)
 	description  = db.Column(db.String(4096), unique=False, nullable=False)
 
 	def __init__(self, points=0, title="", room="", author="", start=0, duration=0,
-		weblink=None, description=""):
+		weblink="", description=""):
 
 		self.points       = points
 		self.title        = title
