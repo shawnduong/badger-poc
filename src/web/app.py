@@ -13,7 +13,7 @@ app.secret_key = FLASK_SECRET_KEY
 
 # Load the database.
 db = SQLAlchemy(app)
-from models import *
+from model import *
 with app.app_context():
 	db.create_all()
 
