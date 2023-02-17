@@ -150,20 +150,32 @@ class Code(db.Model):
 		self.value = value
 		self.note  = note
 
-class CodeRedemption(db.Model):
+class Submit(db.Model):
 	"""
-	Relate an Account to a Code.
+	Account <-> Code
 	"""
 
-	__tablename__ = "coderedemptions"
+	__tablename__ = "submits"
 
 	id = db.Column(db.Integer, primary_key=True)
+
 	user = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
-	code = db.Column(db.Integer, db.ForeignKey(Code.id), unique=False, nullable=False)
+	code = db.Column(db.Integer, db.ForeignKey(Code.id)   , unique=False, nullable=False)
 
 	def __init__(self, user=0, code=0):
 		self.user = user
 		self.code = code
+
+	def check_ne(self, user, code):
+		"""
+		Return True if Submit with user and code do not exist.
+		"""
+
+		try:
+			assert Code.query.filter_by(user=user, code=code).first() == None
+			return True
+		except:
+			return False
 
 class Announcement(db.Model):
 	"""
