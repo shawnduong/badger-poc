@@ -192,6 +192,22 @@ class Prize(db.Model):
 		self.value     = prize
 		self.quantity  = prize
 
+class Redemption(db.Model):
+	"""
+	Account <-> Prize
+	"""
+
+	__tablename__ = "redemptions"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
+	prize = db.Column(db.Integer, db.ForeignKey(Prize.id)  , unique=False, nullable=False)
+
+	def __init__(self, user=0, prize=0):
+		self.user  = user
+		self.prize = prize
+
 class Announcement(db.Model):
 	"""
 	Simple timestamp and HTML contents.
