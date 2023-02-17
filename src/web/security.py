@@ -5,6 +5,12 @@ from app import *
 
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 
+# If there is no admin account, make a default one.
+if Account.query.filter_by(name="admin", type=1).first() == None:
+	admin = Account(1, "password", None, "admin", None, None)
+	db.session.add(admin)
+	db.session.commit()
+
 loginManager = LoginManager()
 loginManager.init_app(app)
 loginManager.login_view = "login"

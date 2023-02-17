@@ -17,17 +17,6 @@ from models import *
 with app.app_context():
 	db.create_all()
 
-# If there is no admin account, make a default one.
-if Account.query.filter_by(name="admin", acctType=1).first() == None:
-	admin = Account(1, "password", None, "admin", None, None)
-	db.session.add(admin)
-	db.session.commit()
-
-# Security.
 from security import *
-
-# Website routes.
 from routes import *
-
-# API endpoints.
 from api import *
