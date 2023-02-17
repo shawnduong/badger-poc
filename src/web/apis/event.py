@@ -9,7 +9,7 @@ from app import *
 def api_event_create():
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -100,7 +100,7 @@ def api_event_list():
 def api_event_delete(id):
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -116,7 +116,7 @@ def api_event_delete(id):
 def api_event_edit(id):
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:

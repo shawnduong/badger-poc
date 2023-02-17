@@ -5,7 +5,7 @@ from app import *
 def api_user_create():
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -22,11 +22,11 @@ def api_user_create():
 def api_user_list():
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		users = Account.query.filter_by(acctType=0).all()
+		users = Account.query.filter_by(type=0).all()
 		response = [{"cardID": hex(u.cardID)[2:].zfill(8), "name": u.name, "email": u.email, "points": u.points}
 			for u in users]
 		return {"Response": "200 OK", "Users": response}, 200
@@ -38,12 +38,12 @@ def api_user_list():
 def api_user_delete(cardID):
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
 		cardID = int(cardID, 16)
-		account = Account.query.filter_by(acctType=0, cardID=cardID).delete()
+		account = Account.query.filter_by(type=0, cardID=cardID).delete()
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 	except:

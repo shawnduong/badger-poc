@@ -5,7 +5,7 @@ from app import *
 def api_announcement_create():
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -34,7 +34,7 @@ def api_announcement_list():
 def api_announcement_delete(id):
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -50,7 +50,7 @@ def api_announcement_delete(id):
 def api_announcement_edit(id):
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:

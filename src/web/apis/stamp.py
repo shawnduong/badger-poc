@@ -5,7 +5,7 @@ from app import *
 def api_stamp_create():
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -22,7 +22,7 @@ def api_stamp_create():
 def api_stamp_list():
 
 	# Admins get a list of all stamps.
-	if current_user.acctType == 1:
+	if current_user.type == 1:
 		try:
 			stamps = Stamp.query.all()
 			response = [{"id": s.id, "name": s.name} for s in stamps]
@@ -46,7 +46,7 @@ def api_stamp_list():
 def api_stamp_delete(id):
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
