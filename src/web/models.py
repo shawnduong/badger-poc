@@ -82,17 +82,13 @@ class Account(UserMixin, db.Model):
 		db.session.commit()
 
 class Event(db.Model):
-	"""
-	Events. Note that the times are epoch time. If a weblink is present, then
-	the user may click the link to learn more about the event externally.
-	"""
 
 	__tablename__ = "events"
 
 	id = db.Column(db.Integer, primary_key=True)
 
-	points      = db.Column(db.Integer    , unique=False, nullable=False)
-	title       = db.Column(db.String(256), unique=False, nullable=False)
+	points      = db.Column(db.Integer     , unique=False, nullable=False)
+	title       = db.Column(db.String(256) , unique=False, nullable=False)
 	room        = db.Column(db.String(256) , unique=False, nullable=False)
 	author      = db.Column(db.String(256) , unique=False, nullable=False)
 	start       = db.Column(db.Integer     , unique=False, nullable=False)
@@ -100,11 +96,8 @@ class Event(db.Model):
 	weblink     = db.Column(db.String(256) , unique=False, nullable=True )
 	description = db.Column(db.String(4096), unique=False, nullable=False)
 
-	def __init__(self, points=0, title="", room="", author="",
-		start=0, duration=0, weblink=None, description=""):
-		"""
-		Constructor method for Event type objects.
-		"""
+	def __init__(self, points=0, title="", room="", author="", start=0, duration=0,
+		weblink=None, description=""):
 
 		self.points      = points
 		self.title       = title
