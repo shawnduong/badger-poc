@@ -8,24 +8,24 @@
 	<a class="nodecor" href="/admin/announcements/manage">&#8592; Return to announcement management panel</a>
 	<h1>Edit Announcement</h1>
 
-	<div id="announcement-edit-entry">
-		<p>Timestamp: <b><span id="timestamp"></span></b></p>
-		<form id="announcement-edit-form">
-			<label for="announcement-edit-content">Content:</label><br>
-			<textarea id="announcement-edit-content" name="announcement-edit-content" rows=4 style="width:100%">{{ contents }}</textarea>
+	<div>
+		<form id="edit-form">
+			<label for="edit-content">Content:</label><br>
+			<textarea id="edit-content" name="edit-content" rows=4 style="width:100%">{{ contents }}</textarea>
 			<input type="submit" value="Submit">
 		</form>
 	</div>
 
-	<div id="announcement-edit-preview">
+	<div>
 		<p>Preview:</p>
-		<span id="announcement-edit-preview-content">
+		<span id="preview-content">
 		</span>
 	</div>
 
 	<script>let e = {{ timestamp }}; let id = {{ id }}</script>
 	<script src="/static/js/jquery-3.6.0.min.js"></script>
-	<script src="/static/js/edit-announcement.js"></script>
+	<script src="/static/js/common.js"></script>
+	<script src="/static/js/announcements/edit.js"></script>
 
 </body>
 
