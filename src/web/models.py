@@ -247,13 +247,11 @@ class Punch(db.Model):
 			return False
 
 class Announcement(db.Model):
-	"""
-	Simple timestamp and HTML contents.
-	"""
 
 	__tablename__ = "announcements"
 
 	id = db.Column(db.Integer, primary_key=True)
+
 	timestamp = db.Column(db.Integer     , unique=False, nullable=False)
 	contents  = db.Column(db.String(4096), unique=False, nullable=False)
 
