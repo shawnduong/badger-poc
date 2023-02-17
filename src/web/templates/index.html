@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<title>Badger</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-	<link rel="shortcut icon" type="image/png" href="/static/png/favicon.png">
-</head>
+{% set pageTitle = "Badger" %}{% include "includes/header.html" %}
 
 <body>
 
@@ -20,10 +16,10 @@
 
 	<div id="login">
 		<h1>Login</h1>
-		<p>Please log in using your card ID found on the back of your badge.</p>
+		<p>Please log in using your UID found on the back of your badge.</p>
 		<form action="/login" method="POST">
-			<label for="cardID">Card ID:</label>
-			<input type="text" id="cardID" name="cardID" placeholder="1234ABCD">
+			<label for="uid">UID:</label>
+			<input type="text" id="uid" name="uid">
 			<input type="submit" value="Log In">
 		</form>
 		{% if failed %}
