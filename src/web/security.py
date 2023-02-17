@@ -22,8 +22,8 @@ def load_user(id: int):
 @app.route("/login", methods=["POST"])
 def login():
 
-	# Passwordless card ID based login.
-	user = Account.get_user(request.form["cardID"])
+	# Passwordless UID based login.
+	user = Account.get_user(request.form["uid"])
 
 	if user == False:
 		time.sleep(1)  # Prevent brute.
