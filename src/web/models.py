@@ -124,30 +124,13 @@ class Attendance(db.Model):
 		self.user  = user
 		self.event = event
 
-class Announcement(db.Model):
-	"""
-	Simple timestamp and HTML contents.
-	"""
-
-	__tablename__ = "announcements"
-
-	id = db.Column(db.Integer, primary_key=True)
-	timestamp = db.Column(db.Integer     , unique=False, nullable=False)
-	contents  = db.Column(db.String(4096), unique=False, nullable=False)
-
-	def __init__(self, timestamp=0, contents=""):
-		self.timestamp = timestamp
-		self.contents  = contents
-
 class Code(db.Model):
-	"""
-	Points addition code.
-	"""
 
 	__tablename__ = "codes"
 
 	id = db.Column(db.Integer, primary_key=True)
-	code  = db.Column(db.String(64) , unique=True , nullable=False)
+
+	code  = db.Column(db.String(128), unique=True , nullable=False)
 	value = db.Column(db.Integer    , unique=False, nullable=False)
 	note  = db.Column(db.String(128), unique=True , nullable=False)
 
@@ -170,6 +153,21 @@ class CodeRedemption(db.Model):
 	def __init__(self, user=0, code=0):
 		self.user = user
 		self.code = code
+
+class Announcement(db.Model):
+	"""
+	Simple timestamp and HTML contents.
+	"""
+
+	__tablename__ = "announcements"
+
+	id = db.Column(db.Integer, primary_key=True)
+	timestamp = db.Column(db.Integer     , unique=False, nullable=False)
+	contents  = db.Column(db.String(4096), unique=False, nullable=False)
+
+	def __init__(self, timestamp=0, contents=""):
+		self.timestamp = timestamp
+		self.contents  = contents
 
 class Stamp(db.Model):
 	"""
