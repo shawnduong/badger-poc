@@ -110,14 +110,15 @@ class Event(db.Model):
 
 class Attendance(db.Model):
 	"""
-	Relate a Account to an Event.
+	Account <-> Event
 	"""
 
 	__tablename__ = "attendances"
 
 	id = db.Column(db.Integer, primary_key=True)
+
 	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
-	event = db.Column(db.Integer, db.ForeignKey(Event.id), unique=False, nullable=False)
+	event = db.Column(db.Integer, db.ForeignKey(Event.id)  , unique=False, nullable=False)
 
 	def __init__(self, user=0, event=0):
 		self.user  = user
