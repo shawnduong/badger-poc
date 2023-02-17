@@ -124,6 +124,17 @@ class Attendance(db.Model):
 		self.user  = user
 		self.event = event
 
+	def check_ne(self, user, event):
+		"""
+		Return True if Attendance with user and event do not exist.
+		"""
+
+		try:
+			assert Attendance.query.filter_by(user=user, event=event).first() == None
+			return True
+		except:
+			return False
+
 class Code(db.Model):
 
 	__tablename__ = "codes"
