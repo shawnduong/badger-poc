@@ -64,10 +64,10 @@ def admin_password_change_api():
 @login_required
 def logout():
 
-	logout_user()
-
 	if current_user.type == 1:
+		logout_user()
 		return render_template("admin/login.html")
 	else:
+		logout_user()
 		return render_template("index.html")
 
