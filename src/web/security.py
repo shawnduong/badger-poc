@@ -47,7 +47,7 @@ def login_admin():
 
 @app.route("/admin/password/change", methods=["POST"])
 @login_required
-def admin_password_change():
+def admin_password_change_api():
 
 	try:
 		assert bcrypt.checkpw(request.form["password-current"].encode(), current_user.password)

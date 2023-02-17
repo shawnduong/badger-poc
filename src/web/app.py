@@ -16,5 +16,5 @@ with app.app_context():
 	db.create_all()
 
 from security import *
-from routes import *
+from route import *
 from api import *
