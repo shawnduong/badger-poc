@@ -191,3 +191,31 @@ class CodeRedemption(db.Model):
 		self.user = user
 		self.code = code
 
+class Stamp(db.Model):
+	"""
+	Once-redeemable freebies.
+	"""
+
+	__tablename__ = "stamps"
+
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(128), unique=False, nullable=False)
+
+	def __init__(self, name=0):
+		self.name = name
+
+class Stampings(db.Model):
+	"""
+	Relate an Account to a Stamp.
+	"""
+
+	__tablename__ = "stampings"
+
+	id = db.Column(db.Integer, primary_key=True)
+	user = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
+	stamp = db.Column(db.Integer, db.ForeignKey(Stamp.id), unique=False, nullable=False)
+
+	def __init__(self, user=0, stamp=0):
+		self.user = user
+		self.stamp = stamp
+

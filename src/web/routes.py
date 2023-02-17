@@ -171,6 +171,15 @@ def admin_codes():
 		return redirect(url_for("index"))
 	return render_template("admin/codes.html")
 
+@app.route("/admin/stamps", methods=["GET"])
+@login_required
+def admin_stamps():
+
+	# Admin only.
+	if current_user.acctType != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/stamps.html")
+
 @app.route("/admin/users", methods=["GET"])
 @login_required
 def admin_users():

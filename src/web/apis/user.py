@@ -85,6 +85,6 @@ def api_user_info():
 				"points": current_user.points,
 			}
 		}, 200
-	except Exception as e:
+	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
