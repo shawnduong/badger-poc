@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Edit Reward" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin/rewards/manage">&#8592; Return to rewards management panel</a>
+	<h1>Edit Reward</h1>
+
+	<div>
+		<form id="edit-form">
+			<label for="reward">Reward:</label>
+			<input type="text" id="reward" name="reward" style="width: 15em" value="{{ reward }}"><br><br>
+			<label for="value">Value:</label>
+			<input type="number" min=0 id="value" name="value" style="width: 5em" value="{{ value }}">
+			<label for="stock" style="margin-left: 1em">Stock:</label>
+			<input type="number" min=0 id="stock" name="stock" style="width: 5em" value="{{ stock }}"><br><br>
+			<input type="submit" value="Edit">
+			<span id="form-response" style="padding-left: 1em"></span>
+		</form>
+	</div>
+
+	<script>let id = {{ id }};</script>
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/rewards/edit.js"></script>
+
+</body>
+
+</html>

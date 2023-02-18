@@ -9,10 +9,8 @@ def api_code_create():
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		code = request.form["code"]
 		value = int(request.form["value"])
-		note = request.form["note"]
-		c = Code(code, value, note)
+		c = Code(request.form["code"], value, request.form["note"])
 		db.session.add(c)
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
@@ -75,7 +73,7 @@ def api_code_edit(id):
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		vlue = int(request.form["value"])
+		value = int(request.form["value"])
 		code = Code.query.filter_by(id=int(id)).first()
 		code.code = request.form["code"]
 		code.value = value

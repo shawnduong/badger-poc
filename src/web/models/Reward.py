@@ -8,14 +8,14 @@ class Reward(db.Model):
 
 	id = db.Column(db.Integer, primary_key=True)
 
-	prize     = db.Column(db.String(256), unique=False, nullable=False)
-	value     = db.Column(db.Integer    , unique=False, nullable=False)
-	quantity  = db.Column(db.Integer    , unique=False, nullable=False)
+	reward = db.Column(db.String(256), unique=False, nullable=False)
+	value  = db.Column(db.Integer    , unique=False, nullable=False)
+	stock  = db.Column(db.Integer    , unique=False, nullable=False)
 
-	def __init__(self, prize="", value=0, quantity=0):
-		self.prize     = prize
-		self.value     = prize
-		self.quantity  = prize
+	def __init__(self, reward="", value=0, stock=0):
+		self.reward = reward
+		self.value = value
+		self.stock = stock
 
 class Redemption(db.Model):
 	"""

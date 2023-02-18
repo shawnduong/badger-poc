@@ -150,6 +150,28 @@ def admin_stamps_edit(id):
 	return render_template("admin/stamps/edit.html",
 		id=s.id, name=s.name, slots=s.slots)
 
+@app.route("/admin/rewards/manage", methods=["GET"])
+@login_required
+def admin_rewards_manage():
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/rewards/manage.html")
+
+@app.route("/admin/rewards/edit/<id>", methods=["GET"])
+@login_required
+def admin_rewards_edit(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+
+	r = Reward.query.filter_by(id=int(id)).first()
+
+	return render_template("admin/rewards/edit.html",
+		id=r.id, reward=r.reward, value=r.value, stock=r.stock)
+
 @app.route("/admin/users", methods=["GET"])
 @login_required
 def admin_users():
