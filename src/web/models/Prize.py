@@ -2,9 +2,9 @@ from app import db
 
 from models.Account import Account
 
-class Prize(db.Model):
+class Reward(db.Model):
 
-	__tablename__ = "prizes"
+	__tablename__ = "rewards"
 
 	id = db.Column(db.Integer, primary_key=True)
 
@@ -12,14 +12,14 @@ class Prize(db.Model):
 	value     = db.Column(db.Integer    , unique=False, nullable=False)
 	quantity  = db.Column(db.Integer    , unique=False, nullable=False)
 
-	def __init__(self, prize="", value=0, quantity=""):
+	def __init__(self, prize="", value=0, quantity=0):
 		self.prize     = prize
 		self.value     = prize
 		self.quantity  = prize
 
 class Redemption(db.Model):
 	"""
-	Account <-> Prize
+	Account <-> Reward
 	"""
 
 	__tablename__ = "redemptions"
@@ -27,9 +27,9 @@ class Redemption(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 
 	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
-	prize = db.Column(db.Integer, db.ForeignKey(Prize.id)  , unique=False, nullable=False)
+	prize = db.Column(db.Integer, db.ForeignKey(Reward.id) , unique=False, nullable=False)
 
-	def __init__(self, user=0, prize=0):
-		self.user  = user
-		self.prize = prize
+	def __init__(self, user=0, reward=0):
+		self.user    = user
+		self.reward  = reward
 
