@@ -11,24 +11,24 @@ function update()
 		{
 			lastUpdate = dataStr;
 
-			$("#codes-table-data").empty();
-			$("#codes-table-data:last-child").append(
+			$("#codes-table").empty();
+			$("#codes-table").append(
 				"<tr class='table-header'>"+
 					"<th style='width: 8em'>Code</th>"+
 					"<th style='width: 3em'>Value</th>"+
 					"<th>Note</th>"+
-					"<th style='width: 3em'>Remove</th>"+
+					"<th style='width: 3em'>Actions</th>"+
 				"</tr>"
 			);
 
 			for (let i = 0; i < data.Codes.length; i++)
 			{
-				$("#codes-table-data:last-child").append(
-					"<tr>"+
-						"<td>"+data.Codes[i].code+"</td>"+
+				$("#codes-table").append(
+					"<tr id='"+data.Codes[i].id+"'>"+
+						"<td class='code-contents'>"+data.Codes[i].code+"</td>"+
 						"<td>"+data.Codes[i].value+"</td>"+
 						"<td>"+data.Codes[i].note+"</td>"+
-						"<td class='delete' id='"+data.Codes[i].id+"'></td>"+
+						"<td><center><span class='delete'></span> <span class='edit-icon'></span></center></td>"+
 					"</tr>"
 				);
 			}
@@ -41,7 +41,7 @@ function update()
 $(document).ready(function() { update(); });
 
 /* Make a code. */
-$("#code-create-form").submit(function()
+$("#create-form").submit(function()
 {
 	$.ajax({
 		type: "POST",
@@ -66,11 +66,21 @@ $("#code-create-form").submit(function()
 /* Confirmation dialogue for deleting a code. */
 $(document).on("click", ".delete", function()
 {
-	let text = $(this)[0].previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+	let tr = $(this).parent().parent().parent();
+	let id = tr[0].id;
+	let text = tr.find(".code-contents").text();
 	if (!confirm("Are you sure you want to delete "+text+"?"))  return;
 
 	$.ajax({
 		type: "POST",
-		url: "/api/code/delete/"+$(this)[0].id,
+		url: "/api/code/delete/"+id,
 	});
+});
+
+/* Edit a code. */
+$(document).on("click", ".edit-icon", function()
+{
+	let tr = $(this).parent().parent().parent();
+	let id = tr[0].id;
+	location.href="/admin/codes/edit/"+id;
 });

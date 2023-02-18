@@ -53,8 +53,8 @@ def admin_announcements_edit(id):
 	if current_user.type != 1:
 		return redirect(url_for("index"))
 
-	a = Announcement.query.filter_by(id=id).first()
-	return render_template("admin/announcements/edit.html", id=id,
+	a = Announcement.query.filter_by(id=int(id)).first()
+	return render_template("admin/announcements/edit.html", id=a.id,
 		contents=a.contents, timestamp=a.timestamp)
 
 @app.route("/admin/events/manage", methods=["GET"])
@@ -83,7 +83,7 @@ def admin_events_edit(id):
 	if current_user.type != 1:
 		return redirect(url_for("index"))
 
-	e = Event.query.filter_by(id=id).first()
+	e = Event.query.filter_by(id=int(id)).first()
 
 	hours = 0
 	minutes = 0
@@ -94,7 +94,7 @@ def admin_events_edit(id):
 		minutes = n
 
 	return render_template("admin/events/edit.html",
-		id=id,
+		id=e.id,
 		title=e.title,
 		author=e.author,
 		room=e.room,
@@ -106,14 +106,27 @@ def admin_events_edit(id):
 		description=e.description
 	)
 
-@app.route("/admin/codes", methods=["GET"])
+@app.route("/admin/codes/manage", methods=["GET"])
 @login_required
-def admin_codes():
+def admin_codes_manage():
 
 	# Admin only.
 	if current_user.type != 1:
 		return redirect(url_for("index"))
-	return render_template("admin/codes.html")
+	return render_template("admin/codes/manage.html")
+
+@app.route("/admin/codes/edit/<id>", methods=["GET"])
+@login_required
+def admin_codes_edit(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+
+	c = Code.query.filter_by(id=int(id)).first()
+
+	return render_template("admin/codes/edit.html",
+		id=c.id, code=c.code, value=c.value, note=c.note)
 
 @app.route("/admin/stamps", methods=["GET"])
 @login_required

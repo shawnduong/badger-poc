@@ -5,15 +5,12 @@
 
 <body>
 
-	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
-	<script src="/static/js/manage-codes.js" defer></script>
-
 	<a class="nodecor" href="/admin">&#8592; Return to management panel</a>
 	<h1>Manage Codes</h1>
 
-	<div id="create-code">
+	<div>
 		<h3>Create a New Code</h3>
-		<form id="code-create-form">
+		<form id="create-form">
 			<label for="code">Code:</label>
 			<input type="text" id="code" name="code">
 			<label for="value" style="margin-left: 1em">Value:</label>
@@ -25,10 +22,13 @@
 		</form>
 	</div>
 
-	<div id="codes-table">
+	<div>
 		<h3>All Codes</h3>
-		<table id="codes-table-data" style="width: 100%"></table>
+		<table id="codes-table" style="width: 100%"></table>
 	</div>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/codes/manage.js"></script>
 
 </body>
 

@@ -5,7 +5,7 @@ from app import *
 def api_code_create():
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -24,7 +24,7 @@ def api_code_create():
 def api_code_list():
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
@@ -40,12 +40,11 @@ def api_code_list():
 def api_code_delete(id):
 
 	# Admin only.
-	if current_user.acctType != 1:
+	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		id = int(id)
-		code = Code.query.filter_by(id=id).delete()
+		code = Code.query.filter_by(id=int(id)).delete()
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 	except:
@@ -66,4 +65,22 @@ def api_code_submit(code):
 		return {"Response": "200 OK"}, 200
 	except:
 		return {"Response": "400 Bad Request"}, 400
+
+@app.route("/api/code/edit/<id>", methods=["POST"])
+@login_required
+def api_code_edit(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		code = Code.query.filter_by(id=int(id)).first()
+		code.code = request.form["code"]
+		code.value = request.form["value"]
+		code.note = request.form["note"]
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
 

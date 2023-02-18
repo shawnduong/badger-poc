@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Edit Code" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin/codes/manage">&#8592; Return to codes management panel</a>
+	<h1>Edit Code</h1>
+
+	<div>
+		<form id="edit-form">
+			<label for="code">Code:</label>
+			<input type="text" id="code" name="code" value="{{ code }}">
+			<label for="value" style="margin-left: 1em">Value:</label>
+			<input type="number" id="value" name="value" style="width: 5em" value="{{ value }}"><br><br>
+			<label for="note">Note:</label>
+			<input type="text" id="note" name="note" style="width: 32em" value="{{ note }}"><br><br>
+			<input type="submit" value="Submit">
+			<span id="form-response" style="padding-left: 1em"></span>
+		</form>
+	</div>
+
+	<script>let id={{ id }};</script>
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/codes/edit.js"></script>
+
+</body>
+
+</html>

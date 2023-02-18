@@ -10,7 +10,7 @@ $("#edit-form").submit(function()
 		data: {"contents": $("#edit-content").val()},
 		success: function()
 		{
-			location.href="/admin/announcements/manage"
+			location.href="/admin/announcements/manage";
 		},
 		error: function()
 		{
