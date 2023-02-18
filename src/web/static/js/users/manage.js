@@ -11,26 +11,26 @@ function update()
 		{
 			lastUpdate = dataStr;
 
-			$("#user-table-data").empty();
-			$("#user-table-data:last-child").append(
+			$("#table-data").empty();
+			$("#table-data").append(
 				"<tr class='table-header'>"+
-					"<th>Card ID</th>"+
+					"<th style='width: 5em'>UID</th>"+
 					"<th>Name</th>"+
 					"<th>Email</th>"+
-					"<th>Points</th>"+
-					"<th>Remove</th>"+
+					"<th style='width: 3em'>Points</th>"+
+					"<th style='width: 3em'>Actions</th>"+
 				"</tr>"
 			);
 
 			for (let i = 0; i < data.Users.length; i++)
 			{
-				$("#user-table-data:last-child").append(
-					"<tr>"+
-						"<td>"+data.Users[i].cardID+"</td>"+
+				$("#table-data").append(
+					"<tr id='"+data.Users[i].id+"'>"+
+						"<td class='user-contents'>"+data.Users[i].uid+"</td>"+
 						"<td>"+data.Users[i].name+"</td>"+
 						"<td>"+data.Users[i].email+"</td>"+
 						"<td>"+data.Users[i].points+"</td>"+
-						"<td class='delete' id='"+data.Users[i].cardID+"'></td>"+
+						"<td><center><span class='delete'></span></center></td>"+
 					"</tr>"
 				);
 			}
@@ -42,17 +42,17 @@ function update()
 
 $(document).ready(function() { update(); });
 
-/* Given a cardID, make a user. */
-$("#user-create-form").submit(function()
+/* Given a uid, make a user. */
+$("#create-form").submit(function()
 {
 	$.ajax({
 		type: "POST",
 		url: "/api/user/create",
-		data: {"cardID": $("#cardID").val()},
+		data: {"uid": $("#uid").val()},
 		success: function()
 		{
-			$("#form-response").html("<span style='color: green;'>User "+$("#cardID").val()+" created.</span>")
-			$("#cardID").val("");
+			$("#form-response").html("<span style='color: green;'>User "+$("#uid").val()+" created.</span>")
+			$("#uid").val("");
 		},
 		error: function()
 		{
@@ -66,10 +66,14 @@ $("#user-create-form").submit(function()
 /* Confirmation dialogue for deleting a user. */
 $(document).on("click", ".delete", function()
 {
-	if (!confirm("Are you sure you want to delete "+$(this)[0].id+"?"))  return;
+	let tr = $(this).parent().parent().parent();
+	let id = tr[0].id;
+	let text = tr.find(".user-contents").text();
+
+	if (!confirm("Are you sure you want to delete "+text+"?"))  return;
 
 	$.ajax({
 		type: "POST",
-		url: "/api/user/delete/"+$(this)[0].id,
+		url: "/api/user/delete/"+id,
 	});
 });

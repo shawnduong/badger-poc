@@ -5,26 +5,26 @@
 
 <body>
 
-	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
-	<script src="/static/js/manage-users.js" defer></script>
-
 	<a class="nodecor" href="/admin">&#8592; Return to management panel</a>
 	<h1>Manage Users</h1>
 
-	<div id="create-user">
+	<div>
 		<h3>Create a New User</h3>
-		<form id="user-create-form">
-			<label for="cardID">Card ID:</label>
-			<input type="text" id="cardID" name="cardID">
+		<form id="create-form">
+			<label for="uid">UID:</label>
+			<input type="text" id="uid" name="uid">
 			<input type="submit" value="Create">
 			<span id="form-response" style="padding-left: 1em"></span>
 		</form>
 	</div>
 
-	<div id="user-table">
+	<div>
 		<h3>All Users</h3>
-		<table id="user-table-data" style="width: 100%"></table>
+		<table id="table-data" style="width: 100%"></table>
 	</div>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/users/manage.js"></script>
 
 </body>
 

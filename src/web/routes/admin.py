@@ -172,12 +172,12 @@ def admin_rewards_edit(id):
 	return render_template("admin/rewards/edit.html",
 		id=r.id, reward=r.reward, value=r.value, stock=r.stock)
 
-@app.route("/admin/users", methods=["GET"])
+@app.route("/admin/users/manage", methods=["GET"])
 @login_required
 def admin_users():
 
 	# Admin only.
 	if current_user.type != 1:
 		return redirect(url_for("index"))
-	return render_template("admin/users.html")
+	return render_template("admin/users/manage.html")
 

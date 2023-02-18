@@ -9,8 +9,8 @@ def api_user_create():
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		cardID = int(request.form["cardID"], 16)
-		user = Account(cardID=cardID)
+		uid = int(request.form["uid"], 16)
+		user = Account(uid=uid)
 		db.session.add(user)
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
@@ -27,23 +27,22 @@ def api_user_list():
 
 	try:
 		users = Account.query.filter_by(type=0).all()
-		response = [{"cardID": hex(u.cardID)[2:].zfill(8), "name": u.name, "email": u.email, "points": u.points}
-			for u in users]
+		response = [{"id": u.id, "uid": hex(u.uid)[2:].zfill(8), "name": u.name,
+			"email": u.email, "points": u.points} for u in users]
 		return {"Response": "200 OK", "Users": response}, 200
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
-@app.route("/api/user/delete/<cardID>", methods=["POST"])
+@app.route("/api/user/delete/<id>", methods=["POST"])
 @login_required
-def api_user_delete(cardID):
+def api_user_delete(id):
 
 	# Admin only.
 	if current_user.type != 1:
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		cardID = int(cardID, 16)
-		account = Account.query.filter_by(type=0, cardID=cardID).delete()
+		account = Account.query.filter_by(id=int(id)).delete()
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 	except:
