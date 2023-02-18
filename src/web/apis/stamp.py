@@ -9,8 +9,7 @@ def api_stamp_create():
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		name = request.form["name"]
-		stamp = Stamp(name)
+		stamp = Stamp(request.form["name"], int(request.form["slots"]))
 		db.session.add(stamp)
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
@@ -25,7 +24,7 @@ def api_stamp_list():
 	if current_user.type == 1:
 		try:
 			stamps = Stamp.query.all()
-			response = [{"id": s.id, "name": s.name} for s in stamps]
+			response = [{"id": s.id, "name": s.name, "slots": s.slots} for s in stamps]
 			return {"Response": "200 OK", "Stamps": response}, 200
 		except:
 			return {"Response": "500 Internal Server Error"}, 500
@@ -50,8 +49,25 @@ def api_stamp_delete(id):
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		id = int(id)
-		stamp = Stamp.query.filter_by(id=id).delete()
+		stamp = Stamp.query.filter_by(id=int(id)).delete()
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/stamp/edit/<id>", methods=["POST"])
+@login_required
+def api_stamp_edit(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		slots = int(request.form["slots"])
+		stamp = Stamp.query.filter_by(id=int(id)).first()
+		stamp.name = request.form["name"]
+		stamp.slots = slots
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 	except:

@@ -8,10 +8,12 @@ class Stamp(db.Model):
 
 	id = db.Column(db.Integer, primary_key=True)
 
-	name = db.Column(db.String(512), unique=False, nullable=False)
+	name  = db.Column(db.String(512), unique=False, nullable=False)
+	slots = db.Column(db.Integer    , unique=False, nullable=False)
 
-	def __init__(self, name=""):
-		self.name = name
+	def __init__(self, name="", slots=0):
+		self.name  = name
+		self.slots = slots
 
 class Punch(db.Model):
 	"""
@@ -28,15 +30,4 @@ class Punch(db.Model):
 	def __init__(self, user=0, stamp=0):
 		self.user  = user
 		self.stamp = stamp
-
-	def check_ne(self, user, stamp):
-		"""
-		Return True if Punch with user and stamp do not exist.
-		"""
-
-		try:
-			assert Punch.query.filter_by(user=user, stamp=stamp).first() == None
-			return True
-		except:
-			return False
 

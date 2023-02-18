@@ -11,20 +11,22 @@ function update()
 		{
 			lastUpdate = dataStr;
 
-			$("#stamps-table-data").empty();
-			$("#stamps-table-data:last-child").append(
+			$("#stamps-table").empty();
+			$("#stamps-table").append(
 				"<tr class='table-header'>"+
 					"<th>Stamp</th>"+
-					"<th style='width: 3em'>Remove</th>"+
+					"<th style='width: 3em'>Slots</th>"+
+					"<th style='width: 3em'>Actions</th>"+
 				"</tr>"
 			);
 
 			for (let i = 0; i < data.Stamps.length; i++)
 			{
-				$("#stamps-table-data:last-child").append(
-					"<tr>"+
-						"<td>"+data.Stamps[i].name+"</td>"+
-						"<td class='delete' id='"+data.Stamps[i].id+"'></td>"+
+				$("#stamps-table").append(
+					"<tr id='"+data.Stamps[i].id+"'>"+
+						"<td class='stamp-name'>"+data.Stamps[i].name+"</td>"+
+						"<td>"+data.Stamps[i].slots+"</td>"+
+						"<td><center><span class='delete'></span> <span class='edit-icon'></span></center></td>"+
 					"</tr>"
 				);
 			}
@@ -37,16 +39,17 @@ function update()
 $(document).ready(function() { update(); });
 
 /* Make a stamp. */
-$("#stamp-create-form").submit(function()
+$("#create-form").submit(function()
 {
 	$.ajax({
 		type: "POST",
 		url: "/api/stamp/create",
-		data: {"name": $("#stamp").val()},
+		data: {"name": $("#stamp").val(), "slots": $("#slots").val()},
 		success: function()
 		{
 			$("#form-response").html("<span style='color: green;'>Stamp "+$("#stamp").val()+" created.</span>")
 			$("#stamp").val("");
+			$("#slots").val("");
 		},
 		error: function()
 		{
@@ -60,11 +63,24 @@ $("#stamp-create-form").submit(function()
 /* Confirmation dialogue for deleting a stamp. */
 $(document).on("click", ".delete", function()
 {
-	let text = $(this)[0].previousElementSibling.innerHTML;
-	if (!confirm("Are you sure you want to delete "+text+"?"))  return;
+	let tr = $(this).parent().parent().parent();
+	let id = tr[0].id;
+	let text = tr.find(".stamp-name").text();
+
+	if (!confirm("Are you sure you want to delete "+text+"?"))  return false;
 
 	$.ajax({
 		type: "POST",
-		url: "/api/stamp/delete/"+$(this)[0].id,
+		url: "/api/stamp/delete/"+id,
 	});
+
+	return false;
+});
+
+/* Edit a stamp. */
+$(document).on("click", ".edit-icon", function()
+{
+	let tr = $(this).parent().parent().parent();
+	let id = tr[0].id;
+	location.href="/admin/stamps/edit/"+id;
 });

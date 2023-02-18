@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Edit Stamp" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin/stamps/manage">&#8592; Return to stamps management panel</a>
+	<h1>Edit Stamp</h1>
+
+	<form id="edit-form">
+		<label for="stamp">Name:</label>
+		<input type="text" id="stamp" name="stamp" value="{{ name }}"><br><br>
+		<label for="Slots">Slots:</label>
+		<input type="number" min=0 id="slots" name="slots" style="width: 5em" value="{{ slots }}"><br><br>
+		<input type="submit" value="Create">
+		<span id="form-response" style="padding-left: 1em"></span>
+	</form>
+
+	<script>let id = {{ id }};</script>
+	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
+	<script src="/static/js/stamps/edit.js" defer></script>
+
+</body>
+
+</html>

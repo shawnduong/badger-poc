@@ -128,14 +128,27 @@ def admin_codes_edit(id):
 	return render_template("admin/codes/edit.html",
 		id=c.id, code=c.code, value=c.value, note=c.note)
 
-@app.route("/admin/stamps", methods=["GET"])
+@app.route("/admin/stamps/manage", methods=["GET"])
 @login_required
-def admin_stamps():
+def admin_stamps_manage():
 
 	# Admin only.
 	if current_user.type != 1:
 		return redirect(url_for("index"))
-	return render_template("admin/stamps.html")
+	return render_template("admin/stamps/manage.html")
+
+@app.route("/admin/stamps/edit/<id>", methods=["GET"])
+@login_required
+def admin_stamps_edit(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+
+	s = Stamp.query.filter_by(id=int(id)).first()
+
+	return render_template("admin/stamps/edit.html",
+		id=s.id, name=s.name, slots=s.slots)
 
 @app.route("/admin/users", methods=["GET"])
 @login_required

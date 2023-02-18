@@ -69,12 +69,15 @@ $(document).on("click", ".delete", function()
 	let tr = $(this).parent().parent().parent();
 	let id = tr[0].id;
 	let text = tr.find(".code-contents").text();
-	if (!confirm("Are you sure you want to delete "+text+"?"))  return;
+
+	if (!confirm("Are you sure you want to delete "+text+"?"))  return false;
 
 	$.ajax({
 		type: "POST",
 		url: "/api/code/delete/"+id,
 	});
+
+	return false;
 });
 
 /* Edit a code. */

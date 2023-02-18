@@ -75,9 +75,10 @@ def api_code_edit(id):
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
+		vlue = int(request.form["value"])
 		code = Code.query.filter_by(id=int(id)).first()
 		code.code = request.form["code"]
-		code.value = request.form["value"]
+		code.value = value
 		code.note = request.form["note"]
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
