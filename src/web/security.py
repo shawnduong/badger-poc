@@ -40,7 +40,7 @@ def login_admin():
 
 	if user == False:
 		time.sleep(1)  # Prevent brute.
-		return render_template("admin_login.html", failed=True)
+		return render_template("admin/login.html", failed=True)
 
 	login_user(user)
 	return redirect(url_for("admin"))

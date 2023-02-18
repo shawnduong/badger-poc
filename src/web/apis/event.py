@@ -58,10 +58,10 @@ def api_event_list():
 		for e in Event.query.all():
 
 			length = ""
-			if (n:=(e.duration // 3600)) > 0:
-				length += f"{n}h"
-			if (n:=((e.duration % 3600) // 60)) > 0:
-				length += f"{n}m"
+			if (h:=(e.duration // 3600)) > 0:
+				length += f"{h}h"
+			if (m:=((e.duration % 3600) // 60)) > 0:
+				length += f"{m}m"
 
 			if int(time.time()) > e.start + e.duration:
 				status = 2  # Completed
@@ -137,8 +137,7 @@ def api_event_edit(id):
 		if "m" in request.form["duration"]:
 			duration += 60 * int(durstr.split("m")[0])
 
-		id = int(id)
-		event = Event.query.filter_by(id=id).first()
+		event = Event.query.filter_by(id=int(id)).first()
 		event.points = int(request.form["points"])
 		event.title = request.form["title"]
 		event.room = request.form["location"]
@@ -150,7 +149,6 @@ def api_event_edit(id):
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 
-	except Exception as e:
-		print(e)
+	except:
 		return {"Response": "500 Internal Server Error"}, 500
 

@@ -35,4 +35,3 @@ function update_preview_loop()
 }
 
 $(document).ready(function() { update_preview_loop(); });
-

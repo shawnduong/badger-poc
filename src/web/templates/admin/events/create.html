@@ -5,41 +5,36 @@
 
 <body>
 
-	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
-	<script src="/static/js/create-event.js" defer></script>
-
 	<a class="nodecor" href="/admin/events/manage">&#8592; Return to events management panel</a>
 	<h1>Create Event</h1>
 	
-	<div id="event-creation-entry">
-		<form id="event-creation-form">
-			<label for="event-title">Title:</label><br>
-			<input type="text" id="event-title" name="event-title" style="width: 32em"><br><br>
-			<label for="event-author">Author:</label><br>
-			<input type="text" id="event-author" name="event-author" style="width: 16em"><br><br>
-			<label for="event-location">Location:</label><br>
-			<input type="text" id="event-location" name="event-location" style="width: 16em"><br><br>
-			<label for="event-start">Start Time:</label><br>
-			<input type="datetime-local" id="event-start" name="event-start"><br><br>
-			<input type="hidden" id="event-timezone" name="event-timezone" value="-08:00"> <!-- Default TZ -->
-			<label>Length:</label><br>
-			<input type="number" min="0" id="event-duration-hours" name="event-duration-hours" style="width: 3em">
-			<label for="event-duration-hours">h</label>
-			<input type="number" min="0" max="60" id="event-duration-minutes" name="event-duration-minutes" style="width: 3em">
-			<label for="event-duration-minutes">m</label><br><br>
-			<label for="event-points">Points:</label><br>
-			<input type="number" min="0" id="event-points" name="event-points" style="width: 3em"><br><br>
-			<label for="event-weblink">(Optional) External Link:</label><br>
-			<input type="text" min="0" id="event-weblink" name="event-weblink" style="width: 16em"><br><br>
-			<label for="event-description">Description</label><br>
-			<textarea id="event-description" name="event-description" rows=4 style="width:100%"></textarea><br><br>
-			<input type="submit" value="Submit">
-		</form>
-	</div>
+	<form id="create-form">
+		<label for="title">Title:</label><br>
+		<input type="text" id="title" name="title" style="width: 32em"><br><br>
+		<label for="author">Author:</label><br>
+		<input type="text" id="author" name="author" style="width: 16em"><br><br>
+		<label for="location">Location:</label><br>
+		<input type="text" id="location" name="location" style="width: 16em"><br><br>
+		<label for="start">Start Time:</label><br>
+		<input type="datetime-local" id="start" name="start"><br><br>
+		<input type="hidden" id="timezone" name="timezone" value="-08:00"> <!-- Default TZ -->
+		<label>Length:</label><br>
+		<input type="number" min="0" id="duration-hours" name="duration-hours" style="width: 3em">
+		<label for="duration-hours">h</label>
+		<input type="number" min="0" max="60" id="duration-minutes" name="duration-minutes" style="width: 3em">
+		<label for="duration-minutes">m</label><br><br>
+		<label for="pts">Points:</label><br>
+		<input type="number" min="0" id="pts" name="pts" style="width: 3em"><br><br>
+		<label for="weblink">(Optional) External Link:</label><br>
+		<input type="text" min="0" id="weblink" name="weblink" style="width: 16em"><br><br>
+		<label for="description">Description</label><br>
+		<textarea id="description" name="description" rows=4 style="width:100%"></textarea><br><br>
+		<input type="submit" value="Submit">
+	</form>
 
-	<div id="event-creation-preview">
+	<div>
 		<p>Table Preview:</p>
-		<table id="events-table-data" style="width: 100%">
+		<table style="width: 100%">
 			<tr class="table-header">
 				<th style="width: 7em">Time</th>
 				<th style="width: 4em">Length</th>
@@ -48,10 +43,10 @@
 				<th style="width: 3em">Info</th>
 			</tr>
 			<tr>
-				<td id="event-preview-start"></td>
-				<td id="event-preview-length"></td>
-				<td id="event-preview-location"></td>
-				<td id="event-preview-title"></td>
+				<td id="preview-start"></td>
+				<td id="preview-length"></td>
+				<td id="preview-location"></td>
+				<td id="preview-title"></td>
 				<td><center><h3><a class="nodecor hovercursor">&gt;&gt;</a></h3></center></td>
 			</td>
 		</table>
@@ -59,16 +54,25 @@
 		<hr>
 		<p>Page Preview:</p>
 		<div id="event-page">
-			<h1 id="event-page-title"></h1>
-			<h3>by <span id="event-page-author"></span></h3>
+			<h1 id="page-title"></h1>
+			<h3>by <span id="page-author"></span></h3>
 			<h1>|</h1>
-			<h3><span id="event-page-location"></span> @ <span id="event-page-start"></span></h3>
+			<h3><span id="page-location"></span> @ <span id="page-start"></span></h3>
 			<br>
-			<p><b>Duration: <span id="event-page-duration"></span> - Reward: <span id="event-page-points"></span> points</b></p>
-			<span id="event-page-weblink"></span>
-			<p id="event-page-description"></p>
+			<p><b>Duration: <span id="page-duration"></span> - Reward: <span id="page-points"></span> points</b></p>
+			<span id="page-weblink"></span>
+			<p id="page-description"></p>
 		</div>
 	</div>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/common.js"></script>
+	<script src="/static/js/events/common.js"></script>
+	<script src="/static/js/events/create.js"></script>
+
+	<script>
+		update_preview_loop();
+	</script>
 
 </body>
 

@@ -5,26 +5,22 @@
 
 <body>
 
-	<script src="/static/js/jquery-3.6.0.min.js" defer></script>
-	<script src="/static/js/manage-events.js" defer></script>
-
 	<a class="nodecor" href="/admin">&#8592; Return to management panel</a>
 	<h1>Manage Events</h1>
 
-	<div id="announcement-table">
-		<a href="/admin/events/create">Create a New Event</a>
-		<h3>All Events</h3>
-		<table id="events-table-data" style="width: 100%">
-			<tr class="table-header">
-				<th style="width: 7em">Time</th>
-				<th style="width: 4em">Length</th>
-				<th style="width: 4em">Location</th>
-				<th>Title</th>
-				<th style="width: 3em">Info</th>
-				<th style="width: 3em">Actions</th>
-			</tr>
-		</table>
-	</div>
+	<a href="/admin/events/create">Create a New Event</a>
+	<h3>All Events</h3>
+	<table id="event-table" style="width: 100%">
+	</table>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/common.js"></script>
+	<script src="/static/js/events/common.js"></script>
+	<script src="/static/js/events/manage.js"></script>
+
+	<script>
+		load_events(true);
+	</script>
 
 </body>
 

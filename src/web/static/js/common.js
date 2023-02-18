@@ -7,3 +7,13 @@ function to_stamp(timestamp)
 
 	return dateStr+" "+timeStr;
 }
+
+/* Convert h and m into an HhMm string. */
+function to_HhMm(H, M)
+{
+	let str = "";
+	if (H > 0) str += H+"h";
+	if (M > 0) str += M+"m";
+
+	return str;
+}
