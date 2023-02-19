@@ -41,3 +41,19 @@ def api_badger_approve(id):
 		return {"Response": "200 OK"}, 200
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/badger/delete/<id>", methods=["POST"])
+@login_required
+def api_badger_delete(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		Badger.query.filter_by(id=int(id)).delete()
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+

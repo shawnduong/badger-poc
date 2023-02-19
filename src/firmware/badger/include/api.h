@@ -4,19 +4,6 @@
 #include <ArduinoJson.h>  // ArduinoJson library by Benoit Blanchon.
 #include <ESP8266HTTPClient.h>
 
-/* GET some host+path with an identity and write the output to code, response. */
-void get(String host, String path, uint64_t identity, uint16_t *code, String *response)
-{
-	WiFiClient client;
-	HTTPClient http;
-	String url = host + path + "?identity=" + String(identity);
-
-	http.begin(client, url);
-	*code = http.GET();
-	*response = http.getString();
-	http.end();
-}
-
 /* POST JSON data to a host+path with an identity and write the output to a code, response. */
 void post(String host, String path, uint64_t identity, uint16_t *code, String *response, String data)
 {

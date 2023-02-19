@@ -1,14 +1,17 @@
-let lastUpdate = null;
+let lastUpdatePending = null;
+let lastUpdateApproved = null;
 
 function update_tables()
 {
 	$.getJSON("/api/badger/list", function (d)
 	{
-		let dataStr = JSON.stringify(d.Pending);
+		let dataStrPending = JSON.stringify(d.Pending);
+		let dataStrApproved = JSON.stringify(d.Approved);
 
-		if (lastUpdate != dataStr)
+		if ((lastUpdatePending != dataStrPending) || (lastUpdateApproved != dataStrApproved))
 		{
-			lastUpdate = dataStr;
+			lastUpdatePending = dataStrPending;
+			lastUpdateApproved = dataStrApproved;
 
 			$("#pending-table").empty();
 			$("#approved-table").empty();
@@ -27,7 +30,7 @@ function update_tables()
 				"<tr class='table-header'>"+
 					"<th style='width: 5em'>UID</th>"+
 					"<th>Mode</th><th>Event</th>"+
-					"<th>Actions</th>"+
+					"<th style='width: 3em'>Actions</th>"+
 				"</tr>"
 			);
 
@@ -37,7 +40,7 @@ function update_tables()
 					"<tr id='"+d.Approved[i].id+"'>"+
 						"<td class='badger-contents mono'>"+d.Approved[i].identity+"</td>"+
 						"<td>"+d.Approved[i].mode+"</td><td>"+d.Approved[i].event+"</td>"+
-						"<td class='delete'></td>"+
+						"<td><center><span class='delete'></span> <span class='edit-icon'></span></center></td>"+
 					"</tr>"
 				);
 			}
@@ -62,6 +65,31 @@ $(document).on("click", ".confirm", function()
 	{
 		type: "POST",
 		url: "/api/badger/approve/"+id,
+		success: function()
+		{
+			update_tables();
+		},
+		error: function()
+		{
+			alert("Unexpected error occurred.");
+		}
+	});
+
+	return false;
+});
+
+$(document).on("click", ".delete", function()
+{
+	let tr = $(this).parent().parent().parent();
+	let id = tr[0].id;
+	let text = tr.find(".badger-contents").text();
+
+	if (!confirm("Are you sure you want to delete "+text+"?"))  return false;
+
+	$.ajax(
+	{
+		type: "POST",
+		url: "/api/badger/delete/"+id,
 		success: function()
 		{
 			update_tables();

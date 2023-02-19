@@ -7,7 +7,8 @@ class Badger(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 
 	# approved: 0 => not approved, 1 => pending, 2 => approved
-	# status: 0 => no status, 1 => attendance, 2 => rewards, 3 => stamps
+	# status: 0 => no status, 1 => attendance, 2 => rewards, 3 => stamps,
+	#         4 => provisionment
 	# tending is the ID of the event or stamp it's associated with.
 	identity  = db.Column(db.Integer, unique=True , nullable=False)
 	approved  = db.Column(db.Integer, unique=False, nullable=False)
@@ -49,6 +50,8 @@ class Badger(db.Model):
 			return "Rewards"
 		elif self.status == 3:
 			return "Stamps"
+		elif self.status == 4:
+			return "Provisionment"
 
 		return "Unexpected error occurred."
 
@@ -67,5 +70,8 @@ class Badger(db.Model):
 		elif self.status == 3:
 			s = Stamp.query.filter_by(id=self.tending).first()
 			return s.name
+		elif self.status == 4:
+			return "N/A"
 
 		return "Unexpected error occurred."
+
