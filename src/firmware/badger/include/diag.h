@@ -37,6 +37,7 @@ void post()
 
 	/* Network test for connectivity. */
 	Serial.println("Running network test.");
+	Serial.println("Please whitelist this MAC if behind a captive portal: " + get_mac());
 	while (!connect(NET_SSID, NET_PASS, TIMEOUT));
 	led_rgb_green(); delay(500); led_clear();
 
