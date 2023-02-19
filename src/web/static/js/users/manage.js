@@ -26,7 +26,7 @@ function update()
 			{
 				$("#table-data").append(
 					"<tr id='"+data.Users[i].id+"'>"+
-						"<td class='user-contents'>"+data.Users[i].uid+"</td>"+
+						"<td class='user-contents mono'>"+data.Users[i].uid+"</td>"+
 						"<td>"+data.Users[i].name+"</td>"+
 						"<td>"+data.Users[i].email+"</td>"+
 						"<td>"+data.Users[i].points+"</td>"+

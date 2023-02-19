@@ -35,12 +35,13 @@ void post()
 		delay(500);
 		led_clear();
 
-		Serial.println("Running network test.");
-		while (!connect(NET_SSID, NET_PASS, TIMEOUT));
-		led_green();
-		delay(500);
-		led_clear();
 	#endif
+
+	Serial.println("Running network test.");
+	while (!connect(NET_SSID, NET_PASS, TIMEOUT));
+	led_green();
+	delay(500);
+	led_clear();
 
 	Serial.println("POST complete.");
 }

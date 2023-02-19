@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Manage Badgers" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin">&#8592; Return to management panel</a>
+	<h1>Manage Badgers</h1>
+
+	<h3>Pending Units</h3>
+	<table id="pending-table" class="invis-table"></table>
+
+	<h3>Units</h3>
+	<table id="approved-table" style="width: 100%"></table>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/badgers/manage.js"></script>
+	<script>
+		update_tables_loop();
+	</script>
+
+</body>
+
+</html>

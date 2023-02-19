@@ -109,6 +109,10 @@ th, td {
 	color: #99EDC3;
 }
 
+.mono {
+	font-family: monospace;
+}
+
 #info-points {
 	font-size: 1.5em;
 }

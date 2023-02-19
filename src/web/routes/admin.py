@@ -172,6 +172,15 @@ def admin_rewards_edit(id):
 	return render_template("admin/rewards/edit.html",
 		id=r.id, reward=r.reward, value=r.value, stock=r.stock)
 
+@app.route("/admin/badgers/manage", methods=["GET"])
+@login_required
+def admin_badgers_manage():
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/badgers/manage.html")
+
 @app.route("/admin/users/manage", methods=["GET"])
 @login_required
 def admin_users():
