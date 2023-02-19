@@ -11,21 +11,33 @@ function load_events(admin)
 		{
 			lastUpdateEvents = dataStr;
 
-			$("#event-table").append(
+			$("#event-table").empty();
+
+			let str =
 				"<tr class='table-header'>"+
 					"<th style='width: 7em'>Time</th>"+
 					"<th style='width: 4em'>Length</th>"+
 					"<th style='width: 4em'>Location</th>"+
 					"<th>Title</th>"+
-					"<th style='width: 3em'>Info</th>"+
-					"<th style='width: 3em'>Actions</th>"+
-				"</tr>"
-			);
+					"<th style='width: 3em'>Info</th>";
+
+			if (admin)
+			{
+				str += "<th style='width: 3em'>Actions</th>";
+			}
+
+			str += "</tr>";
+
+			$("#event-table").append(str);
+
+			let active = 0;
+			let hidden = 0;
 
 			for (let i = d.Events.length-1; i >= 0; i--)
 			{
 				let t = to_stamp(d.Events[i].start * 1000);
-				let stat = ""
+				let stat = "";
+				let vis = "";
 
 				if (d.Events[i].status == 2)
 					stat = "event-completed";
@@ -34,8 +46,33 @@ function load_events(admin)
 				else
 					stat = "";
 
-				let str =
-					"<tr id='"+d.Events[i].id+"' class='"+stat+"'>" +
+				if (!admin)
+				{
+					if (d.Events[i].status == 2)
+					{
+						stat += " eextra";
+						vis = "hidden";
+						hidden++;
+					}
+					else if (d.Events[i].status == 1)
+					{
+						active++;
+					}
+					else
+					{
+						/* Only 5 shown at once max. */
+						if (active >= 5)
+						{
+							stat += " eextra";
+							vis = "hidden";
+							hidden++;
+						}
+						else  active++;
+					}
+				}
+
+				str =
+					"<tr id='"+d.Events[i].id+"' class='"+stat+"' "+vis+">" +
 						"<td>"+t+"</td>"+
 						"<td>"+d.Events[i].length+"</td>"+
 						"<td>"+d.Events[i].location+"</td>"+
@@ -53,6 +90,12 @@ function load_events(admin)
 				str += "</tr>";
 
 				$("#event-table").append(str);
+			}
+
+			if (!admin)
+			{
+				if (hidden > 0)  $("#events-expand-toggle").attr("hidden", false);
+				else             $("#events-expand-toggle").attr("hidden", true);
 			}
 		}
 	});

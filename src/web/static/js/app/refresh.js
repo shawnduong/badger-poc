@@ -24,6 +24,7 @@ function update_user_info()
 /* Continuously update the page via AJAX. */
 function refresh()
 {
+	load_events(false);
 	update_user_info();
 }
 function refresh_loop()

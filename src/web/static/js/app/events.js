@@ -1,3 +1,5 @@
+let ehidden = true;
+
 /* Name change dialogue. */
 $("#edit-name").click(function()
 {
@@ -72,4 +74,21 @@ $("#code-submit-form").submit(function()
 	});
 
 	return false;
+});
+
+/* Un/hide events. */
+$("#events-expand-toggle").click(function()
+{
+	if (ehidden)
+	{
+		ehidden = false;
+		$(".eextra").each(function () { $(this).attr("hidden", false) });
+		$("#events-expand-toggle").text("Collapse");
+	}
+	else
+	{
+		ehidden = true;
+		$(".eextra").each(function () { $(this).attr("hidden", true) });
+		$("#events-expand-toggle").text("Expand");
+	}
 });
