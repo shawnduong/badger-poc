@@ -77,6 +77,7 @@ def api_reward_redeem(id):
 		reward = Reward.query.filter_by(id=int(id)).first()
 		assert reward.remaining() > 0
 		assert reward.can_afford(current_user) > 0
+		assert reward.limit_one(current_user.id) > 0
 		redemption = Redemption(current_user.id, reward.id)
 		db.session.add(redemption)
 		db.session.commit()

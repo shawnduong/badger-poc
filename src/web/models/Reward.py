@@ -21,6 +21,9 @@ class Reward(db.Model):
 		user.update_points()
 		return user.points >= self.value
 
+	def limit_one(self, user=0) -> bool:
+		return len(Redemption.query.filter_by(user=user, reward=self.id).all()) == 0
+
 	def status(self, user=0) -> int:
 		"""
 		Returns 0 if not redeemed, 1 if redeemed but not claimed, and 2 if claimed.
