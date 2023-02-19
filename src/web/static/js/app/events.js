@@ -135,7 +135,7 @@ $(document).on("click", ".claim", function()
 		},
 		error: function()
 		{
-			alert("Claim failed. Out of stock or already claimed.");
+			alert("Claim failed. Out of stock, already claimed, or insufficient points.");
 		}
 	});
 

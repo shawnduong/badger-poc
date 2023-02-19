@@ -17,6 +17,10 @@ class Reward(db.Model):
 		self.value = value
 		self.stock = stock
 
+	def can_afford(self, user) -> bool:
+		user.update_points()
+		return user.points >= self.value
+
 	def status(self, user=0) -> int:
 		"""
 		Returns 0 if not redeemed, 1 if redeemed but not claimed, and 2 if claimed.
