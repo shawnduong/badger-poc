@@ -22,19 +22,16 @@ void post()
 
 		byte idbuffer[12];
 		uint64_t id;
-		byte len = 4;
+		byte len;
 
 		while (true)
 		{
 			if (!read_uid(255, idbuffer, &len))  continue;
 			id = (idbuffer[0] << 0x18) | (idbuffer[1] << 0x10) | (idbuffer[2] << 0x08) | idbuffer[3];
 			Serial.print("Read id: "); Serial.println(id);
-			shift_out(0b100000);
+			led_green(); delay(500); led_clear();
 			break;
 		}
-		led_green();
-		delay(500);
-		led_clear();
 
 	#endif
 

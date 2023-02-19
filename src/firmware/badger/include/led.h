@@ -39,4 +39,10 @@ void led_rgb_blue()
 	shift_out(bits);
 }
 
+void led_rgb_white()
+{
+	bits |= 0b001110;
+	shift_out(bits);
+}
+
 #endif

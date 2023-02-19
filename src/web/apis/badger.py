@@ -57,3 +57,15 @@ def api_badger_delete(id):
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/badger/scan", methods=["POST"])
+def api_badger_scan():
+
+	try:
+		assert Badger.auth_request(int(request.args.get("identity")))
+	except:
+		return {"Response": "401 Unauthorized", "rcode": 3}, 401
+
+#	print(request.json["id"])
+
+	# Testing value.
+	return {"Response": "200 OK", "rcode": 0}, 200
