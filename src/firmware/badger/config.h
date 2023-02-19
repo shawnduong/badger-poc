@@ -1,5 +1,5 @@
-/* Unit unique 64-bit identifier. */
-#define IDENTITY 0x0000000000000000
+/* Unit unique 32-bit identifier. */
+#define IDENTITY 0x00000000
 
 /* Network details. */
 #define NET_SSID "YOUR_SSID_HERE"
