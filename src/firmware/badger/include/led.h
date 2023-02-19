@@ -1,34 +1,42 @@
 #ifndef LED_H
 #define LED_H
 
+byte bits = 0b0000000;
+
 void led_clear()
 {
-	shift_out(0b000000);
+	bits = 0b0000000;
+	shift_out(bits);
 }
 
 void led_blue()
 {
-	shift_out(0b010000);
+	bits |= 0b010000;
+	shift_out(bits);
 }
 
 void led_green()
 {
-	shift_out(0b100000);
+	bits |= 0b100000;
+	shift_out(bits);
 }
 
 void led_rgb_red()
 {
-	shift_out(0b000010);
-}
-
-void led_rgb_blue()
-{
-	shift_out(0b000100);
+	bits |= 0b000010;
+	shift_out(bits);
 }
 
 void led_rgb_green()
 {
-	shift_out(0b001000);
+	bits |= 0b000100;
+	shift_out(bits);
+}
+
+void led_rgb_blue()
+{
+	bits |= 0b001000;
+	shift_out(bits);
 }
 
 #endif
