@@ -1,0 +1,24 @@
+Test DB
+
+Admin Login
+- admin:password
+
+4 Announcements
+8 Events
+4 Codes
+  - CODE1: 20
+  - CODE2: 20
+  - CODE3: 100
+  - CODE4: 5
+4 Rewards
+
+Stamps:
+- 3x Breakfast
+- 3x Lunch
+- 3x Dinner
+
+Users
+- 0000007c
+- deadbeef
+- cafebabe
+- feedc0de
