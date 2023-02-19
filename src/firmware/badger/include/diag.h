@@ -6,7 +6,7 @@ void post()
 	Serial.println("Running power on self test (POST).");
 
 	/* Verify the shift register and all LEDs are working. */
-	Serial.println("Running Shift Register test.");
+	Serial.println("Running shift register test.");
 	byte sequence[] = {0b111110, 0b000010, 0b000100, 0b001000, 0b010000, 0b100000, 0};
 
 	for (byte i = 0; i < sizeof(sequence)/sizeof(sequence[0]); i++)

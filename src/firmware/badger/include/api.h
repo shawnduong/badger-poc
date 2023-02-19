@@ -20,7 +20,7 @@ void post(String host, String path, uint64_t identity, uint16_t *code, String *r
 
 /* Identify self to the online API. The status LED will light up blue while
    attempting, then green after being identified. */
-void identify(String host, String endpoint, uint32_t identity)
+void identify()
 {
 	uint16_t code;
 	String response;
@@ -30,9 +30,7 @@ void identify(String host, String endpoint, uint32_t identity)
 
 	while (true)
 	{
-		post(host, endpoint, identity, &code, &response, "");
-		Serial.println(code);
-		Serial.println(response);
+		post(API, "/api/badger/identify", IDENTITY, &code, &response, "");
 		if (code == 200)  break;
 		delay(5000);
 	}
