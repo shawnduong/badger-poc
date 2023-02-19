@@ -18,15 +18,14 @@
 		{% if weblink != "" %}
 			<a href="{{ weblink }}" target="_blank">External URL</a>
 		{% endif %}
-		<p>{{ description }}</p>
+		<p id="description">{{ description | safe }}</p>
 	</div>
 
 	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/common.js"></script>
 	<script>
 		let t = new Date({{ start }}*1000);
-		let dateStr = t.toLocaleDateString().slice(0, -5);
-		let timeStr = t.toLocaleTimeString().slice(0, -6) + t.toLocaleTimeString().slice(-2);
-		$("#event-start").text(dateStr+" "+timeStr);
+		$("#event-start").text(to_stamp(t));
 	</script>
 
 </body>
