@@ -5,28 +5,26 @@
 
 <body>
 
-	<script src="/static/js/jquery-3.6.0.min.js"></script>
-
 	<a class="nodecor" href="/logout">&#8592; Logout</a>
 	<h1>Badger</h1>
 
-	<div id="account-info">
+	<div>
 		<h3>Account Info</h3>
 		<table class="invis-table">
 			<tr>
-				<td>Card ID</td>
-				<td><b id="cardID"></b></td>
+				<td>UID</td>
+				<td><b id="info-uid"></b></td>
 			</tr>
 			<tr>
 				<td style="height: 1.5em">Name</td>
 				<td>
 					<div id="name-container">
-						<b id="name">{{ current_user.name }}</b>
+						<b id="info-name"></b>
 						<img class="edit-icon" id="edit-name" style="margin-left: 2em"/>
 					</div>
 					<div id="name-edit-container" hidden>
 						<form id="name-edit-form">
-							<input type="text" id="name-form" name="name-form" style="margin-right: 1em">
+							<input type="text" id="entry-name" name="entry-name" style="margin-right: 1em">
 							<button type="submit" class="confirm nobutton"></button>
 							<span class="delete" id="name-edit-cancel"></span>
 						</form>
@@ -37,12 +35,12 @@
 				<td style="height: 1.5em">Email</td>
 				<td>
 					<div id="email-container">
-						<b id="email">{{ current_user.email }}</b>
+						<b id="info-email"></b>
 						<img class="edit-icon" id="edit-email" style="margin-left: 2em"/>
 					</div>
 					<div id="email-edit-container" hidden>
 						<form id="email-edit-form">
-							<input type="text" id="email-form" name="email-form" style="margin-right: 1em">
+							<input type="text" id="entry-email" name="entry-email" style="margin-right: 1em">
 							<button type="submit" class="confirm nobutton"></button>
 							<span class="delete" id="email-edit-cancel"></span>
 						</form>
@@ -52,14 +50,14 @@
 		</table>
 	</div>
 
-	<div id="announcements">
+	<div>
 		<h3>Announcements</h3>
 		<div id="announcements-list">
 		</div>
 		<a id="announcements-expand-toggle">Expand</a>
 	</div>
 
-	<div id="events">
+	<div>
 		<h3>Events</h3>
 		<table id="events-table-data" style="width: 100%">
 		</table>
@@ -67,12 +65,12 @@
 		<a id="events-expand-toggle">Expand</a>
 	</div>
 
-	<div id="badge-info">
+	<div>
 		<h3>Badge Info</h3>
-		<p>You have <span id="points">0</span> points.</p>
-		<b>Enter a Secret Code</b>
+		<p>You have <span id="info-points">0</span> points.</p>
+		<b>Submit a Code</b>
 		<form id="code-submit-form">
-			<input type="text" id="code" name="code" style="margin-right: 1em">
+			<input type="text" id="entry-code" name="entry-code" style="margin-right: 1em">
 			<input type="submit" value="Submit">
 		</form>
 	</div>
@@ -89,11 +87,12 @@
 		<p>See an organizer to claim your rewards.</p>
 	</div>
 
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/app/refresh.js"></script>
+	<script src="/static/js/app/events.js"></script>
 	<script>
-		let v = {{ current_user.cardID }};
-		$("#cardID").html(v.toString(16).padStart(8, "0"));
+		refresh_loop();
 	</script>
-	<script src="/static/js/app.js"></script>
 
 </body>
 

@@ -53,15 +53,13 @@ def api_code_delete(id):
 def api_code_submit(code):
 
 	try:
-		user = current_user.id
-		c = Code.query.filter_by(code=str(code)).first().id
-		assert len(CodeRedemption.query.filter_by(user=user, code=c).all()) == 0
-		redemption = CodeRedemption(user, c)
-		db.session.add(redemption)
+		code = Code.query.filter_by(code=str(code)).first()
+		assert Submit.check_ne(current_user.id, code.id)
+		submit = Submit(current_user.id, code.id)
+		db.session.add(submit)
 		db.session.commit()
-		current_user.update_points()
 		return {"Response": "200 OK"}, 200
-	except:
+	except Exception as e:
 		return {"Response": "400 Bad Request"}, 400
 
 @app.route("/api/code/edit/<id>", methods=["POST"])

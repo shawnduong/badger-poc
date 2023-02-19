@@ -33,13 +33,13 @@ class Submit(db.Model):
 		self.user = user
 		self.code = code
 
-	def check_ne(self, user: int, code: int) -> bool:
+	def check_ne(user: int, code: int) -> bool:
 		"""
 		Return True if Submit with user and code do not exist.
 		"""
 
 		try:
-			assert Code.query.filter_by(user=user, code=code).first() == None
+			assert len(Submit.query.filter_by(user=user, code=code).all()) == 0
 			return True
 		except:
 			return False

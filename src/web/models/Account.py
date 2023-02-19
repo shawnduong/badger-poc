@@ -58,26 +58,30 @@ class Account(UserMixin, db.Model):
 
 	def update_points(self):
 		"""
-		Update the user's points as attendances+submits-redemptions.
+		Update the user's points as Attendances + Submits - Redemptions.
 		"""
 
 		self.points = 0
 
-		submits = Submits.query.filter_by(user=self.id).all()
-		attendances = Attendance.query.filter_by(user=self.id).all()
-		redemptions = Redemption.query.filter_by(user=self.id).all()
+		submits = Submit.query.filter_by(user=self.id).all()
+#		attendances = Attendance.query.filter_by(user=self.id).all()
+#		redemptions = Redemption.query.filter_by(user=self.id).all()
 
 		for submit in submits:
-			code = Code.query.filter_by(id=submit.code).first()
-			self.points += code.points
+			try:
+				code = Code.query.filter_by(id=submit.code).first()
+				self.points += code.value
+			except:
+				continue
 
-		for attendance in attendances:
-			event = Event.query.filter_by(id=attendance.event).first()
-			self.points += event.points
-
-		for redemption in redemptions:
-			reward = Reward.query.filter_by(id=redemption.reward).first()
-			self.points -= reward.value
+#		for attendance in attendances:
+#			event = Event.query.filter_by(id=attendance.event).first()
+#			self.points += event.points
+#
+#		for redemption in redemptions:
+#			reward = Reward.query.filter_by(id=redemption.reward).first()
+#			self.points -= reward.value
 
 		db.session.commit()
 
+from models.Code import Code, Submit
