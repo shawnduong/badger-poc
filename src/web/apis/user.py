@@ -76,6 +76,8 @@ def api_user_info():
 
 	try:
 		current_user.update_points()
+		stamps = [{"name": s.name, "slots": s.slots, "punches": s.punches(current_user.id)}
+			for s in Stamp.query.all()]
 		return {
 			"Response": "200 OK",
 			"User": {
@@ -83,6 +85,7 @@ def api_user_info():
 				"name": current_user.name,
 				"email": current_user.email,
 				"points": current_user.points,
+				"stamps": stamps
 			}
 		}, 200
 	except:

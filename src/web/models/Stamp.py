@@ -15,6 +15,9 @@ class Stamp(db.Model):
 		self.name  = name
 		self.slots = slots
 
+	def punches(self, user=0) -> int:
+		return len(Punch.query.filter_by(stamp=self.id, user=user).all())
+
 class Punch(db.Model):
 	"""
 	Account <-> Stamp
