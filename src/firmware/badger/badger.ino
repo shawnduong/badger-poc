@@ -10,7 +10,7 @@
 #define TTS 20000  // ms
 
 /* Sleep duration before waking to poll. */
-#define SLEEP_DURATION 5e6  // us
+#define SLEEP_DURATION 5000  // ms
 
 int64_t ti;
 int64_t tts;
@@ -30,6 +30,9 @@ void setup()
 
 	/* Identify the unit to the API. */
 	identify();
+
+	/* Light sleep mode whenever delay is called. */
+	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 void loop()
@@ -88,9 +91,9 @@ void loop()
 	/* Inactive, sleeping mode. */
 	while (true)
 	{
-		ESP.deepSleep(SLEEP_DURATION);
+		delay(SLEEP_DURATION);
 		led_blue();
-		if (read_uid(16, idbuffer, &len))  break;
+		if (read_uid(5, idbuffer, &len))  break;
 		led_clear();
 	}
 }

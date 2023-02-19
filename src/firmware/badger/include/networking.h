@@ -9,6 +9,7 @@
    Wi-Fi connection is unsuccessful, return false. */
 bool connect(String ssid, String password, uint16_t timeout)
 {
+	WiFi.mode(WIFI_STA);
 	WiFi.begin(ssid, password);
 
 	for (uint8_t i = 0; i < timeout/POLL_INTERVAL; i++)
