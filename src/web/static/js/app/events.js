@@ -1,3 +1,4 @@
+let ahidden = true;
 let ehidden = true;
 
 /* Name change dialogue. */
@@ -74,6 +75,23 @@ $("#code-submit-form").submit(function()
 	});
 
 	return false;
+});
+
+/* Un/hide announcements. */
+$("#announcements-expand-toggle").click(function()
+{
+	if (ahidden)
+	{
+		ahidden = false;
+		$(".aextra").each(function () { $(this).attr("hidden", false) });
+		$("#announcements-expand-toggle").text("Collapse");
+	}
+	else
+	{
+		ahidden = true;
+		$(".aextra").each(function () { $(this).attr("hidden", true) });
+		$("#announcements-expand-toggle").text("Expand");
+	}
 });
 
 /* Un/hide events. */
