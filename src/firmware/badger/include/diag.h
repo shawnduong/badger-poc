@@ -15,6 +15,7 @@ void post()
 		delay(500);
 	}
 
+	/* RC522 scanner test only needed during the production phase. */
 	#ifdef QA
 		Serial.println("Running RC522 test.");
 		Serial.println("Please tap a card.");
@@ -37,9 +38,10 @@ void post()
 
 	#endif
 
+	/* Network test for connectivity. */
 	Serial.println("Running network test.");
 	while (!connect(NET_SSID, NET_PASS, TIMEOUT));
-	led_green();
+	led_rgb_green();
 	delay(500);
 	led_clear();
 
