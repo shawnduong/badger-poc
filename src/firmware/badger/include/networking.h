@@ -15,7 +15,7 @@ bool connect(String ssid, String password, uint16_t timeout)
 	{
 		if (WiFi.status() == WL_CONNECTED)  return true;
 
-		led_blue();
+		led_rgb_blue();
 		delay(POLL_INTERVAL/2);
 		led_clear();
 		delay(POLL_INTERVAL/2);
