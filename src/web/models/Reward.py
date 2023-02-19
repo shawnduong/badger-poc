@@ -17,6 +17,27 @@ class Reward(db.Model):
 		self.value = value
 		self.stock = stock
 
+	def status(self, user=0) -> int:
+		"""
+		Returns 0 if not redeemed, 1 if redeemed but not claimed, and 2 if claimed.
+		"""
+
+		if (r:=Redemption.query.filter_by(user=user, reward=self.id).first()) == None:
+			return 0
+
+		if r.claimed == False:
+			return 1
+
+		return 2
+
+	def claimed(self) -> int:
+
+		return len(Redemption.query.filter_by(reward=self.id).all())
+
+	def remaining(self) -> int:
+
+		return self.stock - self.claimed()
+
 class Redemption(db.Model):
 	"""
 	Account <-> Reward
@@ -26,10 +47,16 @@ class Redemption(db.Model):
 
 	id = db.Column(db.Integer, primary_key=True)
 
-	user  = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
-	prize = db.Column(db.Integer, db.ForeignKey(Reward.id) , unique=False, nullable=False)
+	user    = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
+	reward  = db.Column(db.Integer, db.ForeignKey(Reward.id) , unique=False, nullable=False)
+	claimed = db.Column(db.Boolean, unique=False, nullable=False)
 
-	def __init__(self, user=0, reward=0):
+	def __init__(self, user=0, reward=0, claimed=False):
 		self.user    = user
 		self.reward  = reward
+		self.claimed = claimed
+
+	def claim(self):
+		self.claimed = True
+		db.session.commit()
 

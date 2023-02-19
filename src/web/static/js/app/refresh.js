@@ -1,5 +1,39 @@
 let lastUpdateInfo = null;
 
+function update_rewards(rewards)
+{
+	$("#rewards").empty();
+	$("#rewards").append(
+		"<tr class='table-header'>"+
+			"<th>Item</th>"+
+			"<th style='width: 3em'>Points</th>"+
+			"<th style='width: 3em'>Stock</th>"+
+			"<th style='width: 3em'>Status</th>"+
+			"<th style='width: 3em'>Redeem</th>"+
+		"</tr>"
+	);
+
+	for (let i = 0; i < rewards.length; i++)
+	{
+		let str = "<tr id='"+rewards[i].id+"'>"+
+			"<td class='reward-contents'>"+rewards[i].reward+"</td>"+
+			"<td class='reward-value'>"+rewards[i].value+"</td>"+
+			"<td>"+rewards[i].stock+"</td>";
+
+		if (rewards[i].status == 2)
+			str += "<td>✔✔</td>";
+		else if (rewards[i].status == 1)
+			str += "<td>✔</td>";
+		else
+			str += "<td></td>";
+
+		str += "<td class='claim hovercursor'><center><h3 style='color: #F4A460'>&gt;&gt;</center></h3></td>";
+		str += "</tr>";
+
+		$("#rewards").append(str);
+	}
+}
+
 function update_stamps(stamps)
 {
 	$("#stamps").empty();
@@ -41,6 +75,7 @@ function update_user_info()
 			$("#info-points").text(data.User.points);
 
 			update_stamps(data.User.stamps);
+			update_rewards(data.User.rewards);
 		}
 	});
 }

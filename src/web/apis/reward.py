@@ -28,9 +28,8 @@ def api_reward_list():
 
 	try:
 		rewards = Reward.query.all()
-		# TODO implement claims
 		response = [{"id": r.id, "reward": r.reward, "value": r.value,
-			"stock": r.stock, "claims": 0} for r in rewards]
+			"stock": r.stock, "claims": r.claimed()} for r in rewards]
 		return {"Response": "200 OK", "Rewards": response}, 200
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
@@ -68,5 +67,19 @@ def api_reward_edit(id):
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/reward/redeem/<id>", methods=["POST"])
+@login_required
+def api_reward_redeem(id):
+
+	try:
+		reward = Reward.query.filter_by(id=int(id)).first()
+		assert reward.remaining() > 0
+		redemption = Redemption(current_user.id, reward.id)
+		db.session.add(redemption)
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except Exception as e:
 		return {"Response": "500 Internal Server Error"}, 500
 

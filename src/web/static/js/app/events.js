@@ -14,7 +14,8 @@ $("#name-edit-cancel").click(function()
 });
 $("#name-edit-form").submit(function()
 {
-	$.ajax({
+	$.ajax(
+	{
 		type: "POST",
 		url: "/api/user/edit/name",
 		data: {"name": $("#entry-name").val()},
@@ -42,7 +43,8 @@ $("#email-edit-cancel").click(function()
 });
 $("#email-edit-form").submit(function()
 {
-	$.ajax({
+	$.ajax(
+	{
 		type: "POST",
 		url: "/api/user/edit/email",
 		data: {"email": $("#entry-email").val()},
@@ -60,7 +62,8 @@ $("#email-edit-form").submit(function()
 /* Code submission dialogue. */
 $("#code-submit-form").submit(function()
 {
-	$.ajax({
+	$.ajax(
+	{
 		type: "POST",
 		url: "/api/code/submit/"+$("#entry-code").val(),
 		success: function()
@@ -109,4 +112,32 @@ $("#events-expand-toggle").click(function()
 		$(".eextra").each(function () { $(this).attr("hidden", true) });
 		$("#events-expand-toggle").text("Expand");
 	}
+});
+
+/* Reward confirmation. */
+$(document).on("click", ".claim", function()
+{
+	let tr = $(this).parent();
+	let id = tr[0].id;
+	let prize = tr.find(".reward-contents").text();
+	let value = tr.find(".reward-value").text();
+
+	if (!confirm("Are you sure you want to redeem "+prize+" for "+value+" points?"))  return;
+
+	$.ajax(
+	{
+		type: "POST",
+		url: "/api/reward/redeem/"+id,
+		data: {"name": $("#entry-name").val()},
+		success: function()
+		{
+			refresh();
+		},
+		error: function()
+		{
+			alert("Claim failed. Out of stock or already claimed.");
+		}
+	});
+
+	return false;
 });
