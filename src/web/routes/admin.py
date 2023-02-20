@@ -192,8 +192,8 @@ def admin_badgers_configure(id):
 	try:
 
 		b = Badger.query.filter_by(id=int(id)).first()
-		return render_template("admin/badgers/configure.html",
-			id=b.id, identity=f"{b.identity:08X}")
+		return render_template("admin/badgers/configure.html", id=b.id,
+			identity=f"{b.identity:08X}", status=b.status, tending=b.tending)
 
 	except:
 		pass  # Automatic 404
