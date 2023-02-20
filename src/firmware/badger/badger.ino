@@ -93,6 +93,7 @@ void loop()
 	{
 		delay(SLEEP_DURATION);
 		led_blue();
+		identify();
 		if (read_uid(5, idbuffer, &len))  break;
 		led_clear();
 	}
