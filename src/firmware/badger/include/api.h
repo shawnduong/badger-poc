@@ -41,6 +41,12 @@ void identify()
 	led_clear(); led_rgb_green(); delay(1000); led_clear();
 }
 
+/* Ping to confirm device is still alive. It is not crucial this succeeds. */
+void ping()
+{
+	post(API, "/api/badger/identify", IDENTITY, &httpCode, &httpResponse, "");
+}
+
 /* Send a card ID to the API. Return 0 if invalid, 1 if valid, 2 if on cooldown,
    or 3 if the reader is unauthorized. If max attempts have been reached without
    a 200 response, return -1. */
