@@ -64,7 +64,7 @@ class Account(UserMixin, db.Model):
 		self.points = 0
 
 		submits = Submit.query.filter_by(user=self.id).all()
-#		attendances = Attendance.query.filter_by(user=self.id).all()
+		attendances = Attendance.query.filter_by(user=self.id).all()
 		redemptions = Redemption.query.filter_by(user=self.id).all()
 
 		for submit in submits:
@@ -74,9 +74,12 @@ class Account(UserMixin, db.Model):
 			except:
 				continue
 
-#		for attendance in attendances:
-#			event = Event.query.filter_by(id=attendance.event).first()
-#			self.points += event.points
+		for attendance in attendances:
+			try:
+				event = Event.query.filter_by(id=attendance.event).first()
+				self.points += event.points
+			except:
+				continue
 
 		for redemption in redemptions:
 			try:
@@ -88,4 +91,5 @@ class Account(UserMixin, db.Model):
 		db.session.commit()
 
 from models.Code import Code, Submit
+from models.Event import Event, Attendance
 from models.Reward import Reward, Redemption

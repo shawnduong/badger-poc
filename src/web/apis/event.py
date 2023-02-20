@@ -152,3 +152,41 @@ def api_event_edit(id):
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/event/attendance/list", methods=["GET"])
+@login_required
+def api_event_attendance_list():
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+
+		attendances = []
+
+		for a in Attendance.query.all():
+			u = Account.query.filter_by(id=a.user).first()
+			e = Event.query.filter_by(id=a.event).first()
+			attendances.append({"id": a.id, "uid": u.uid, "name": u.name, "event": e.title})
+
+		return {"Response": "200 OK", "Attendances": attendances}, 200
+
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/event/attendance/delete/<id>", methods=["POST"])
+@login_required
+def api_event_attendance_delete(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		id = int(id)
+		attendance = Attendance.query.filter_by(id=int(id)).delete()
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+

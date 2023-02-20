@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Event Attendances" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin/events/manage">&#8592; Return to events management panel</a>
+	<h1>Event Attendances</h1>
+
+	<table id="attendance-table" style="width: 100%"></table>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/events/attendance.js"></script>
+	<script>
+		load_attendances_loop();
+	</script>
+
+</body>
+
+</html>

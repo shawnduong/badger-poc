@@ -106,6 +106,15 @@ def admin_events_edit(id):
 		description=e.description
 	)
 
+@app.route("/admin/events/attendances", methods=["GET"])
+@login_required
+def admin_events_attendances():
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/events/attendances.html")
+
 @app.route("/admin/codes/manage", methods=["GET"])
 @login_required
 def admin_codes_manage():

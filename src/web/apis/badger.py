@@ -24,7 +24,7 @@ def api_badger_list():
 		approved = [{"id": b.id, "identity": f"{b.identity:08X}", "mode": b.mode(),
 			"event": b.event(), "lastSeen": b.lastSeen} for b in badgers if b.approved == 2]
 		return {"Response": "200 OK", "Pending": pending, "Approved": approved}, 200
-	except Exception as e:
+	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
 @app.route("/api/badger/approve/<id>", methods=["POST"])
@@ -65,10 +65,34 @@ def api_badger_scan():
 	except:
 		return {"Response": "401 Unauthorized", "rcode": 3}, 401
 
-#	print(request.json["id"])
 
-	# Testing value.
-	return {"Response": "200 OK", "rcode": 0}, 200
+	try:
+
+		# Find the badger.
+		b = Badger.query.filter_by(identity=int(request.args.get("identity"))).first()
+
+		# Attendance mode.
+		if b.status == 1:
+
+			# Find the user.
+			user = Account.query.filter_by(uid=int(request.json["id"])).first()
+			assert user != None
+
+			# Find the event.
+			event = Event.query.filter_by(id=b.tending).first()
+			assert event != None
+
+			# Make sure an attendance doesn't exist.
+			if Attendance.check_ne(user.id, event.id):
+				attendance = Attendance(user.id, event.id)
+				db.session.add(attendance)
+				db.session.commit()
+				return {"Response": "200 OK", "rcode": 1}, 200
+
+			return {"Response": "200 OK", "rcode": 2}, 200
+
+	except:
+		return {"Response": "200 OK", "rcode": 0}, 200
 
 @app.route("/api/badger/configurations", methods=["GET"])
 @login_required
@@ -108,3 +132,4 @@ def api_badger_configure(id):
 
 	except:
 		return {"Response": "400 Bad Request"}, 400
+

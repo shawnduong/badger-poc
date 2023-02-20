@@ -45,7 +45,7 @@ class Attendance(db.Model):
 		self.user  = user
 		self.event = event
 
-	def check_ne(self, user: int, event: int) -> bool:
+	def check_ne(user: int, event: int) -> bool:
 		"""
 		Return True if Attendance with user and event do not exist.
 		"""
