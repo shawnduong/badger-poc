@@ -8,6 +8,16 @@ function to_stamp(timestamp)
 	return dateStr+" "+timeStr;
 }
 
+/* Convert epoch timestamp into a M/D HH:MM:SS (PM/AM) string. */
+function to_full_stamp(timestamp)
+{
+	let t = new Date(timestamp);
+	let dateStr = t.toLocaleDateString();
+	let timeStr = t.toLocaleTimeString();
+
+	return dateStr+" "+timeStr;
+}
+
 /* Convert h and m into an HhMm string. */
 function to_HhMm(H, M)
 {

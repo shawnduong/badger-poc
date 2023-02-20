@@ -30,6 +30,7 @@ function update_tables()
 				"<tr class='table-header'>"+
 					"<th style='width: 5em'>UID</th>"+
 					"<th>Mode</th><th>Event</th>"+
+					"<th style='width: 6em'>Last Seen</th>"+
 					"<th style='width: 3em'>Actions</th>"+
 				"</tr>"
 			);
@@ -40,6 +41,7 @@ function update_tables()
 					"<tr id='"+d.Approved[i].id+"'>"+
 						"<td class='badger-contents mono'>"+d.Approved[i].identity+"</td>"+
 						"<td>"+d.Approved[i].mode+"</td><td>"+d.Approved[i].event+"</td>"+
+						"<td>"+to_full_stamp(d.Approved[i].lastSeen * 1000)+"</td>"+
 						"<td><center><span class='delete'></span> <span class='edit-icon'></span></center></td>"+
 					"</tr>"
 				);

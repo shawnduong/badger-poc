@@ -1,3 +1,5 @@
+import time
+
 from app import db
 
 class Badger(db.Model):
@@ -14,23 +16,30 @@ class Badger(db.Model):
 	approved  = db.Column(db.Integer, unique=False, nullable=False)
 	status    = db.Column(db.Integer, unique=False, nullable=False)
 	tending   = db.Column(db.Integer, unique=False, nullable=False)
+	lastSeen  = db.Column(db.Integer, unique=False, nullable=False)
 
-	def __init__(self, identity=0, approved=0, status=0, tending=0):
+	def __init__(self, identity=0, approved=0, status=0, tending=0, lastSeen=0):
 		self.identity  = identity
 		self.approved  = approved
 		self.status    = status
 		self.tending   = tending
+		self.lastSeen  = lastSeen
+
+	def alive(self):
+		self.lastSeen = int(time.time())
+		db.session.commit()
 
 	def auth_request(identity=0):
 
 		badger = Badger.query.filter_by(identity=identity).first()
 
 		if badger == None:
-			badger = Badger(identity, 1, 0, 0)
+			badger = Badger(identity, 1, 0, 0, int(time.time()))
 			db.session.add(badger)
 			db.session.commit()
 			return False
 
+		badger.alive()
 		return badger.approved == 2
 
 	def auth_approve(self):

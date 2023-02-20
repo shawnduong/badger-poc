@@ -22,7 +22,7 @@ def api_badger_list():
 		badgers = Badger.query.all()
 		pending = [{"id": b.id, "identity": f"{b.identity:08X}"} for b in badgers if b.approved != 2]
 		approved = [{"id": b.id, "identity": f"{b.identity:08X}", "mode": b.mode(),
-			"event": b.event()} for b in badgers if b.approved == 2]
+			"event": b.event(), "lastSeen": b.lastSeen} for b in badgers if b.approved == 2]
 		return {"Response": "200 OK", "Pending": pending, "Approved": approved}, 200
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
