@@ -45,7 +45,8 @@ $(document).ready(function() { update(); });
 /* Given a uid, make a user. */
 $("#create-form").submit(function()
 {
-	$.ajax({
+	$.ajax(
+	{
 		type: "POST",
 		url: "/api/user/create",
 		data: {"uid": $("#uid").val()},
@@ -72,7 +73,8 @@ $(document).on("click", ".delete", function()
 
 	if (!confirm("Are you sure you want to delete "+text+"?"))  return;
 
-	$.ajax({
+	$.ajax(
+	{
 		type: "POST",
 		url: "/api/user/delete/"+id,
 	});

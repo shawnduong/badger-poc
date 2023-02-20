@@ -84,3 +84,5 @@ class Badger(db.Model):
 
 		return "Unexpected error occurred."
 
+from models.Event import Event
+from models.Stamp import Stamp

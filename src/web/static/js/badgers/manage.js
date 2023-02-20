@@ -28,7 +28,7 @@ function update_tables()
 
 			$("#approved-table").append(
 				"<tr class='table-header'>"+
-					"<th style='width: 5em'>UID</th>"+
+					"<th style='width: 5em'>Identity</th>"+
 					"<th>Mode</th><th>Event</th>"+
 					"<th style='width: 6em'>Last Seen</th>"+
 					"<th style='width: 3em'>Actions</th>"+
@@ -103,4 +103,12 @@ $(document).on("click", ".delete", function()
 	});
 
 	return false;
+});
+
+/* Configure a Badger. */
+$(document).on("click", ".edit-icon", function()
+{
+	let tr = $(this).parent().parent().parent();
+	let id = tr[0].id;
+	location.href="/admin/badgers/configure/"+id;
 });

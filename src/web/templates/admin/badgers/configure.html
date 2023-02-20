@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Manage Badgers" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin/badgers/manage">&#8592; Return to Badger management panel</a>
+	<h1>Configure Badger</h1>
+
+	<p><b>Identity: {{ identity }}</b></p>
+	<form id="config-form"></form>
+
+	<script>let id = {{ id }};</script>
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/badgers/configure.js"></script>
+	<script>
+		load_options();
+	</script>
+
+</body>
+
+</html>

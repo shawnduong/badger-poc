@@ -181,6 +181,23 @@ def admin_badgers_manage():
 		return redirect(url_for("index"))
 	return render_template("admin/badgers/manage.html")
 
+@app.route("/admin/badgers/configure/<id>", methods=["GET"])
+@login_required
+def admin_badgers_configure(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+
+	try:
+
+		b = Badger.query.filter_by(id=int(id)).first()
+		return render_template("admin/badgers/configure.html",
+			id=b.id, identity=f"{b.identity:08X}")
+
+	except:
+		pass  # Automatic 404
+
 @app.route("/admin/users/manage", methods=["GET"])
 @login_required
 def admin_users():
