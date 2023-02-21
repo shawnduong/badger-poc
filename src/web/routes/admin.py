@@ -157,7 +157,7 @@ def admin_stamps_edit(id):
 	s = Stamp.query.filter_by(id=int(id)).first()
 
 	return render_template("admin/stamps/edit.html",
-		id=s.id, name=s.name, slots=s.slots)
+		id=s.id, name=s.name, slots=s.slots, cooldown=s.cooldown//60)
 
 @app.route("/admin/rewards/manage", methods=["GET"])
 @login_required

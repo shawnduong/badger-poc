@@ -9,7 +9,8 @@ def api_stamp_create():
 		return {"Response": "401 Unauthorized"}, 401
 
 	try:
-		stamp = Stamp(request.form["name"], int(request.form["slots"]))
+		stamp = Stamp(request.form["name"], int(request.form["slots"]),
+			int(request.form["cooldown"])*60)
 		db.session.add(stamp)
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
@@ -24,7 +25,8 @@ def api_stamp_list():
 	if current_user.type == 1:
 		try:
 			stamps = Stamp.query.all()
-			response = [{"id": s.id, "name": s.name, "slots": s.slots} for s in stamps]
+			response = [{"id": s.id, "name": s.name, "slots": s.slots,
+				"cooldown": int(s.cooldown)//60} for s in stamps]
 			return {"Response": "200 OK", "Stamps": response}, 200
 		except:
 			return {"Response": "500 Internal Server Error"}, 500
@@ -68,6 +70,7 @@ def api_stamp_edit(id):
 		stamp = Stamp.query.filter_by(id=int(id)).first()
 		stamp.name = request.form["name"]
 		stamp.slots = slots
+		stamp.cooldown = int(request.form["cooldown"])*60
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
 	except:

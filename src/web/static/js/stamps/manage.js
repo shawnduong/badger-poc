@@ -16,6 +16,7 @@ function update()
 				"<tr class='table-header'>"+
 					"<th>Stamp</th>"+
 					"<th style='width: 3em'>Slots</th>"+
+					"<th style='width: 3em'>Cooldown</th>"+
 					"<th style='width: 3em'>Actions</th>"+
 				"</tr>"
 			);
@@ -26,6 +27,7 @@ function update()
 					"<tr id='"+data.Stamps[i].id+"'>"+
 						"<td class='stamp-name'>"+data.Stamps[i].name+"</td>"+
 						"<td>"+data.Stamps[i].slots+"</td>"+
+						"<td>"+data.Stamps[i].cooldown+"</td>"+
 						"<td><center><span class='delete'></span> <span class='edit-icon'></span></center></td>"+
 					"</tr>"
 				);
@@ -44,12 +46,13 @@ $("#create-form").submit(function()
 	$.ajax({
 		type: "POST",
 		url: "/api/stamp/create",
-		data: {"name": $("#stamp").val(), "slots": $("#slots").val()},
+		data: {"name": $("#stamp").val(), "slots": $("#slots").val(), "cooldown": $("#cooldown").val()},
 		success: function()
 		{
 			$("#form-response").html("<span style='color: green;'>Stamp "+$("#stamp").val()+" created.</span>")
 			$("#stamp").val("");
 			$("#slots").val("");
+			$("#cooldown").val("");
 		},
 		error: function()
 		{

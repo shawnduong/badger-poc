@@ -12,7 +12,9 @@
 		<label for="stamp">Name:</label>
 		<input type="text" id="stamp" name="stamp" value="{{ name }}"><br><br>
 		<label for="Slots">Slots:</label>
-		<input type="number" min=0 id="slots" name="slots" style="width: 5em" value="{{ slots }}"><br><br>
+		<input type="number" min=0 id="slots" name="slots" style="width: 5em" value="{{ slots }}">
+		<label for="cooldown" style="margin-left: 1em">Cooldown:</label>
+		<input type="number" min=0 id="cooldown" name="cooldown" style="width: 4em" value="{{ cooldown }}"> minutes<br><br>
 		<input type="submit" value="Create">
 		<span id="form-response" style="padding-left: 1em"></span>
 	</form>

@@ -6,7 +6,7 @@ $("#edit-form").submit(function()
 	$.ajax({
 		type: "POST",
 		url: "/api/stamp/edit/"+id,
-		data: {"name": $("#stamp").val(), "slots": $("#slots").val()},
+		data: {"name": $("#stamp").val(), "slots": $("#slots").val(), "cooldown": $("#cooldown").val()},
 		success: function()
 		{
 			location.href="/admin/stamps/manage";
