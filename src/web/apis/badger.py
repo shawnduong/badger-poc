@@ -65,14 +65,19 @@ def api_badger_scan():
 	except:
 		return {"Response": "401 Unauthorized", "rcode": 3}, 401
 
-
 	try:
 
 		# Find the badger.
 		b = Badger.query.filter_by(identity=int(request.args.get("identity"))).first()
 
+		# Idle mode.
+		if b.status == 0:
+
+			# RGB red and blue.
+			return {"Response": "200 OK", "rcode": -1}, 200
+
 		# Attendance mode.
-		if b.status == 1:
+		elif b.status == 1:
 
 			# Find the user.
 			user = Account.query.filter_by(uid=int(request.json["id"])).first()
@@ -84,14 +89,35 @@ def api_badger_scan():
 
 			# Make sure an attendance doesn't exist.
 			if Attendance.check_ne(user.id, event.id):
+
 				attendance = Attendance(user.id, event.id)
 				db.session.add(attendance)
 				db.session.commit()
+
+				# Green.
 				return {"Response": "200 OK", "rcode": 1}, 200
 
+			# Blue.
 			return {"Response": "200 OK", "rcode": 2}, 200
 
-	except:
+		# Provisionment mode.
+		elif b.status == 4:
+
+			# Make sure the user doesn't exist.
+			if Account.query.filter_by(uid=int(request.json["id"])).first() != None:
+				return {"Response": "200 OK", "rcode": 2}, 200
+
+			# Make the user.
+			account = Account(uid=int(request.json["id"]))
+			db.session.add(account)
+			db.session.commit()
+
+			# Green.
+			return {"Response": "200 OK", "rcode": 1}, 200
+
+	except Exception as e:
+
+		# RGB red.
 		return {"Response": "200 OK", "rcode": 0}, 200
 
 @app.route("/api/badger/configurations", methods=["GET"])
