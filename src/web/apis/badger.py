@@ -100,6 +100,24 @@ def api_badger_scan():
 			# Blue.
 			return {"Response": "200 OK", "rcode": 2}, 200
 
+		# Stamp mode.
+		elif b.status == 3:
+
+			# Find the user.
+			user = Account.query.filter_by(uid=int(request.json["id"])).first()
+			assert user != None
+
+			# Find the stamp.
+			stamp = Stamp.query.filter_by(id=b.tending).first()
+			assert stamp != None
+
+			# Try to punch the user. LED green if not on cooldown.
+			if stamp.punch(user.id):
+				return {"Response": "200 OK", "rcode": 1}, 200
+
+			# On cooldown. Blue.
+			return {"Response": "200 OK", "rcode": 2}, 200
+
 		# Provisionment mode.
 		elif b.status == 4:
 
