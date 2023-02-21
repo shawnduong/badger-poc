@@ -113,6 +113,10 @@ th, td {
 	font-family: monospace;
 }
 
+.located {
+	background-color: #98BF64;
+}
+
 #info-points {
 	font-size: 1.5em;
 }

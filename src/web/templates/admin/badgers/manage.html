@@ -8,11 +8,30 @@
 	<a class="nodecor" href="/admin">&#8592; Return to management panel</a>
 	<h1>Manage Badgers</h1>
 
-	<h3>Pending Units</h3>
-	<table id="pending-table" class="invis-table"></table>
+	<div>
+		<h3>Create a New Locator</h3>
+		<form id="create-form">
+			<label for="uid">UID:</label>
+			<input type="text" id="uid" name="uid">
+			<input type="submit" value="Create">
+			<span id="form-response" style="padding-left: 1em"></span>
+		</form>
+	</div>
 
-	<h3>Units</h3>
-	<table id="approved-table" style="width: 100%"></table>
+	<div>
+		<h3>All Locators</h3>
+		<table id="locator-data" style="width: 100%"></table>
+	</div>
+
+	<div>
+		<h3>Pending Units</h3>
+		<table id="pending-table" class="invis-table"></table>
+	</div>
+
+	<div>
+		<h3>Units</h3>
+		<table id="approved-table" style="width: 100%"></table>
+	</div>
 
 	<script src="/static/js/jquery-3.6.0.min.js"></script>
 	<script src="/static/js/common.js"></script>

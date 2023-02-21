@@ -17,13 +17,15 @@ class Badger(db.Model):
 	status    = db.Column(db.Integer, unique=False, nullable=False)
 	tending   = db.Column(db.Integer, unique=False, nullable=False)
 	lastSeen  = db.Column(db.Integer, unique=False, nullable=False)
+	located   = db.Column(db.Integer, unique=False, nullable=False)
 
-	def __init__(self, identity=0, approved=0, status=0, tending=0, lastSeen=0):
+	def __init__(self, identity=0, approved=0, status=0, tending=0, lastSeen=0, located=0):
 		self.identity  = identity
 		self.approved  = approved
 		self.status    = status
 		self.tending   = tending
 		self.lastSeen  = lastSeen
+		self.located   = located
 
 	def alive(self):
 		self.lastSeen = int(time.time())
@@ -83,6 +85,21 @@ class Badger(db.Model):
 			return "N/A"
 
 		return "Unexpected error occurred."
+
+	def locate(self):
+		"""
+		Upon scanning a locator, set this Badger's located timestamp.
+		"""
+
+		self.located = int(time.time())
+		db.session.commit()
+
+	def is_located(self) -> bool:
+		"""
+		Return True if located in the past 5 seconds.
+		"""
+
+		return time.time()-5 < self.located
 
 from models.Event import Event
 from models.Stamp import Stamp

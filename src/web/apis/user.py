@@ -111,3 +111,35 @@ def api_user_info():
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/user/locator/create", methods=["POST"])
+@login_required
+def api_user_locator_create():
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		uid = int(request.form["uid"], 16)
+		user = Account(uid=uid, type=2)
+		db.session.add(user)
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
+		return {"Response": "400 Bad Request"}, 400
+
+@app.route("/api/user/locator/list", methods=["GET"])
+@login_required
+def api_user_locator_list():
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		users = Account.query.filter_by(type=2).all()
+		response = [{"id": u.id, "uid": hex(u.uid)[2:].zfill(8)} for u in users]
+		return {"Response": "200 OK", "Users": response}, 200
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+

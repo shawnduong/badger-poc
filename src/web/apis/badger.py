@@ -21,7 +21,7 @@ def api_badger_list():
 	try:
 		badgers = Badger.query.all()
 		pending = [{"id": b.id, "identity": f"{b.identity:08X}"} for b in badgers if b.approved != 2]
-		approved = [{"id": b.id, "identity": f"{b.identity:08X}", "mode": b.mode(),
+		approved = [{"id": b.id, "identity": f"{b.identity:08X}", "located": b.is_located(), "mode": b.mode(),
 			"event": b.event(), "lastSeen": b.lastSeen} for b in badgers if b.approved == 2]
 		return {"Response": "200 OK", "Pending": pending, "Approved": approved}, 200
 	except:
@@ -69,6 +69,15 @@ def api_badger_scan():
 
 		# Find the badger.
 		b = Badger.query.filter_by(identity=int(request.args.get("identity"))).first()
+
+		# If a locator card was scanned, highlight this Badger.
+		try:
+			user = Account.query.filter_by(uid=int(request.json["id"])).first()
+			assert user.type == 2
+			b.locate()
+			return {"Response": "200 OK", "rcode": 1}, 200
+		except:
+			pass
 
 		# Idle mode.
 		if b.status == 0:
