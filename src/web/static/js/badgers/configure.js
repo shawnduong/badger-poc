@@ -6,6 +6,8 @@ function load_options()
 {
 	$.getJSON("/api/badger/configurations", function (d)
 	{
+		$("#config-form").append("<input type='radio' name='option' value='0;0' id='0_0'>"+
+			"<label for='0_0'>Idle</label><br>");
 		$("#config-form").append("<input type='radio' name='option' value='2;0' id='2_0'>"+
 			"<label for='2_0'>Rewards Station</label><br>");
 		$("#config-form").append("<input type='radio' name='option' value='4;0' id='4_0'>"+
