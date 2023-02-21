@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Stamp Punches" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin/stamps/manage">&#8592; Return to stamps management panel</a>
+	<h1>Stamp Punches</h1>
+
+	<table id="punch-table" style="width: 100%"></table>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/stamps/punch.js"></script>
+	<script>
+		load_punches_loop();
+	</script>
+
+</body>
+
+</html>

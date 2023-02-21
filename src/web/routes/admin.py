@@ -159,6 +159,15 @@ def admin_stamps_edit(id):
 	return render_template("admin/stamps/edit.html",
 		id=s.id, name=s.name, slots=s.slots, cooldown=s.cooldown//60)
 
+@app.route("/admin/stamps/punches", methods=["GET"])
+@login_required
+def admin_stamps_punches():
+
+	# Admin only.
+	if current_user.type != 1:
+		return redirect(url_for("index"))
+	return render_template("admin/stamps/punches.html")
+
 @app.route("/admin/rewards/manage", methods=["GET"])
 @login_required
 def admin_rewards_manage():

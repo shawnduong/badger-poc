@@ -76,3 +76,25 @@ def api_stamp_edit(id):
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
 
+@app.route("/api/stamp/punch/list", methods=["GET"])
+@login_required
+def api_stamp_punch_list():
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+
+		punches = []
+
+		for p in Punch.query.all():
+			u = Account.query.filter_by(id=p.user).first()
+			s = Stamp.query.filter_by(id=p.stamp).first()
+			punches.append({"id": p.id, "uid": u.uid, "name": u.name, "stamp": s.name})
+
+		return {"Response": "200 OK", "Punches": punches}, 200
+
+	except Exception as e:
+		return {"Response": "500 Internal Server Error"}, 500
+
