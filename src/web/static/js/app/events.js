@@ -1,5 +1,6 @@
 let ahidden = true;
 let ehidden = true;
+let bhidden = true;
 
 /* Name change dialogue. */
 $("#edit-name").click(function()
@@ -111,6 +112,23 @@ $("#events-expand-toggle").click(function()
 		ehidden = true;
 		$(".eextra").each(function () { $(this).attr("hidden", true) });
 		$("#events-expand-toggle").text("Expand");
+	}
+});
+
+/* Un/hide points breakdown. */
+$("#badge-expand-toggle").click(function()
+{
+	if (bhidden)
+	{
+		bhidden = false;
+		$("#badge-breakdown-container").attr("hidden", false);
+		$("#badge-expand-toggle").text("Collapse");
+	}
+	else
+	{
+		bhidden = true;
+		$("#badge-breakdown-container").attr("hidden", true);
+		$("#badge-expand-toggle").text("Points Breakdown");
 	}
 });
 

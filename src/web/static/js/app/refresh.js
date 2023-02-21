@@ -76,6 +76,13 @@ function update_user_info()
 
 			update_stamps(data.User.stamps);
 			update_rewards(data.User.rewards);
+
+			$("#badge-breakdown").empty();
+
+			for (let i = 0; i < data.User.breakdown.length; i++)
+			{
+				$("#badge-breakdown").append("<li>"+data.User.breakdown[i]+"</li>");
+			}
 		}
 	});
 }

@@ -75,11 +75,27 @@ def api_user_edit_email():
 def api_user_info():
 
 	try:
+
 		current_user.update_points()
 		stamps = [{"name": s.name, "slots": s.slots, "punches": s.punches(current_user.id)}
 			for s in Stamp.query.all()]
 		rewards = [{"id": r.id, "reward": r.reward, "value": r.value, "stock": r.remaining(),
 			"status": r.status(current_user.id)} for r in Reward.query.all()]
+
+		breakdown = []
+
+		for a in Attendance.query.filter_by(user=current_user.id).all():
+			e = Event.query.filter_by(id=a.event).first()
+			breakdown.append(f"+{e.points} Attended \"{e.title}\"")
+
+		for c in Submit.query.filter_by(user=current_user.id).all():
+			c = Code.query.filter_by(id=c.code).first()
+			breakdown.append(f"+{c.value} Submitted code \"{c.note}\"")
+
+		for r in Redemption.query.filter_by(user=current_user.id).all():
+			rw = Reward.query.filter_by(id=r.reward).first()
+			breakdown.append(f"-{rw.value} Redeemed reward \"{rw.reward}\"")
+
 		return {
 			"Response": "200 OK",
 			"User": {
@@ -89,6 +105,7 @@ def api_user_info():
 				"points": current_user.points,
 				"stamps": stamps,
 				"rewards": rewards,
+				"breakdown": breakdown,
 			}
 		}, 200
 	except:
