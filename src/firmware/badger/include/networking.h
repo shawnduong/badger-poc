@@ -2,6 +2,7 @@
 #define NETWORK_H
 
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
 
 #define POLL_INTERVAL 100  // ms
 
@@ -35,6 +36,14 @@ bool is_connected()
 String get_mac()
 {
 	return WiFi.macAddress();
+}
+
+/* Force Wi-Fi sleep for a duration given in ms. */
+void radio_sleep(uint64_t duration)
+{
+	WiFi.forceSleepBegin();
+	delay(duration);
+	WiFi.forceSleepWake();
 }
 
 #endif

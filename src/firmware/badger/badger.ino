@@ -32,7 +32,7 @@ void setup()
 	identify();
 
 	/* Light sleep mode whenever delay is called. */
-	wifi_set_sleep_type(LIGHT_SLEEP_T);
+	wifi_set_sleep_type(MODEM_SLEEP_T);
 }
 
 void loop()
@@ -91,7 +91,7 @@ void loop()
 	/* Inactive, sleeping mode. */
 	while (true)
 	{
-		delay(SLEEP_DURATION);
+		radio_sleep(SLEEP_DURATION);
 		led_blue();
 		ping();
 		if (read_uid(5, idbuffer, &len))  break;
