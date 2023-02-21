@@ -16,7 +16,7 @@ int64_t ti;
 int64_t tts;
 
 byte idbuffer[12];
-uint64_t id;
+uint32_t id;
 byte len;
 
 void setup()

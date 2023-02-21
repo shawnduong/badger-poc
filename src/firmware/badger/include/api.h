@@ -50,7 +50,7 @@ void ping()
 /* Send a card ID to the API. Return 0 if invalid, 1 if valid, 2 if on cooldown,
    or 3 if the reader is unauthorized. If max attempts have been reached without
    a 200 response, return -1. */
-int8_t scan(uint8_t attempts, uint64_t id)
+int8_t scan(uint8_t attempts, uint32_t id)
 {
 	for (uint8_t i = 0; i < attempts; i++)
 	{
