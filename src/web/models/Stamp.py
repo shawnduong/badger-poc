@@ -1,3 +1,5 @@
+import time
+
 from app import db
 
 from models.Account import Account
@@ -32,7 +34,7 @@ class Stamp(db.Model):
 			if punch.time > latest:
 				latest = punch.time
 
-		if time.time() - latest > cooldown:
+		if time.time() - latest > self.cooldown:
 			punch = Punch(user=user, stamp=self.id)
 			db.session.add(punch)
 			db.session.commit()

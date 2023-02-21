@@ -133,7 +133,7 @@ def api_badger_scan():
 			# Green.
 			return {"Response": "200 OK", "rcode": 1}, 200
 
-	except Exception as e:
+	except:
 
 		# RGB red.
 		return {"Response": "200 OK", "rcode": 0}, 200
