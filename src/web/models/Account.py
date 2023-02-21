@@ -89,6 +89,7 @@ class Account(UserMixin, db.Model):
 				continue
 
 		db.session.commit()
+		return self.points
 
 from models.Code import Code, Submit
 from models.Event import Event, Attendance

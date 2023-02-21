@@ -100,6 +100,23 @@ def api_badger_scan():
 			# Blue.
 			return {"Response": "200 OK", "rcode": 2}, 200
 
+		# Rewards mode.
+		elif b.status == 2:
+
+			# Find the user.
+			user = Account.query.filter_by(uid=int(request.json["id"])).first()
+			assert user != None
+
+			# Find all of their redemptions that are unclaimed.
+			claimings = Redemption.query.filter_by(user=user.id, claiming=False, claimed=False).all()
+
+			# Set all of them to claiming.
+			for c in claimings:
+				c.do_claiming()
+
+			# Green.
+			return {"Response": "200 OK", "rcode": 1}, 200
+
 		# Stamp mode.
 		elif b.status == 3:
 

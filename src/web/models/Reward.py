@@ -54,16 +54,23 @@ class Redemption(db.Model):
 
 	id = db.Column(db.Integer, primary_key=True)
 
-	user    = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
-	reward  = db.Column(db.Integer, db.ForeignKey(Reward.id) , unique=False, nullable=False)
-	claimed = db.Column(db.Boolean, unique=False, nullable=False)
+	user      = db.Column(db.Integer, db.ForeignKey(Account.id), unique=False, nullable=False)
+	reward    = db.Column(db.Integer, db.ForeignKey(Reward.id) , unique=False, nullable=False)
+	claiming  = db.Column(db.Boolean, unique=False, nullable=False)
+	claimed   = db.Column(db.Boolean, unique=False, nullable=False)
 
-	def __init__(self, user=0, reward=0, claimed=False):
-		self.user    = user
-		self.reward  = reward
-		self.claimed = claimed
+	def __init__(self, user=0, reward=0, claiming=False, claimed=False):
+		self.user      = user
+		self.reward    = reward
+		self.claiming  = claiming
+		self.claimed   = claimed
+
+	def do_claiming(self):
+		self.claiming = True
+		db.session.commit()
 
 	def claim(self):
-		self.claimed = True
+		self.claiming  = False
+		self.claimed   = True
 		db.session.commit()
 

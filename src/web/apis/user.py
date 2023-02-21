@@ -28,7 +28,7 @@ def api_user_list():
 	try:
 		users = Account.query.filter_by(type=0).all()
 		response = [{"id": u.id, "uid": hex(u.uid)[2:].zfill(8), "name": u.name,
-			"email": u.email, "points": u.points} for u in users]
+			"email": u.email, "points": u.update_points()} for u in users]
 		return {"Response": "200 OK", "Users": response}, 200
 	except:
 		return {"Response": "500 Internal Server Error"}, 500
