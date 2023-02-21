@@ -22,6 +22,9 @@ class Stamp(db.Model):
 	def punches(self, user=0) -> int:
 		return len(Punch.query.filter_by(stamp=self.id, user=user).all())
 
+	def has_punches(self, user=0) -> bool:
+		return self.punches(user) < self.slots
+
 	def punch(self, user=0) -> bool:
 		"""
 		Return True if successfully punched, or False if on cooldown.

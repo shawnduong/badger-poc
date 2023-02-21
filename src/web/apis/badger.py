@@ -111,6 +111,8 @@ def api_badger_scan():
 			stamp = Stamp.query.filter_by(id=b.tending).first()
 			assert stamp != None
 
+			assert stamp.has_punches(user.id)
+
 			# Try to punch the user. LED green if not on cooldown.
 			if stamp.punch(user.id):
 				return {"Response": "200 OK", "rcode": 1}, 200
