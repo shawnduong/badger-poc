@@ -91,10 +91,10 @@ def api_stamp_punch_list():
 		for p in Punch.query.all():
 			u = Account.query.filter_by(id=p.user).first()
 			s = Stamp.query.filter_by(id=p.stamp).first()
-			punches.append({"id": p.id, "uid": u.uid, "name": u.name, "stamp": s.name})
+			punches.append({"id": p.id, "uid": f"{u.uid: 08X}", "name": u.name, "stamp": s.name})
 
 		return {"Response": "200 OK", "Punches": punches}, 200
 
-	except Exception as e:
+	except:
 		return {"Response": "500 Internal Server Error"}, 500
 

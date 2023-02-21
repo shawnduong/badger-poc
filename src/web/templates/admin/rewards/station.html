@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "Rewards Station" %}{% include "includes/header.html" %}
+
+<body>
+
+	<a class="nodecor" href="/admin/rewards/manage">&#8592; Return to rewards management panel</a>
+	<h1>Rewards Station</h1>
+
+	<div>
+		<h3>Claims</h3>
+		<p>Have a user scan their card, then the prizes we owe them will be displayed below. Check the prizes off after handing it to them.</p>
+		<table id="claim-table" style="width: 100%"></table>
+	</div>
+
+	<div>
+		<h3>Redeemed, not Claimed</h3>
+		<p>This means that they redeemed the prize in the app, but have not claimed their prize in-person yet.</p>
+		<table id="claimed-table" style="width: 100%"></table>
+	</div>
+
+	<div>
+		<h3>All Redemptions</h3>
+		<table id="redemption-table" style="width: 100%"></table>
+	</div>
+
+	<script src="/static/js/jquery-3.6.0.min.js"></script>
+	<script src="/static/js/rewards/station.js"></script>
+	<script>
+		load_redemptions_loop();
+	</script>
+
+</body>
+
+</html>

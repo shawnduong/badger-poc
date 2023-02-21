@@ -82,6 +82,43 @@ def api_reward_redeem(id):
 		db.session.add(redemption)
 		db.session.commit()
 		return {"Response": "200 OK"}, 200
-	except Exception as e:
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/reward/redemption/list", methods=["GET"])
+@login_required
+def api_reward_redemptions_list():
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+
+		redemptions = []
+
+		for r in Redemption.query.all():
+			u = Account.query.filter_by(id=r.user).first()
+			rw = Reward.query.filter_by(id=r.reward).first()
+			redemptions.append({"id": r.id, "uid": f"{u.uid: 08X}", "name": u.name, "reward": rw.reward})
+
+		return {"Response": "200 OK", "Redemptions": redemptions}, 200
+
+	except:
+		return {"Response": "500 Internal Server Error"}, 500
+
+@app.route("/api/reward/redemption/delete/<id>", methods=["POST"])
+@login_required
+def api_reward_redemptions_delete(id):
+
+	# Admin only.
+	if current_user.type != 1:
+		return {"Response": "401 Unauthorized"}, 401
+
+	try:
+		redemption = Redemption.query.filter_by(id=int(id)).delete()
+		db.session.commit()
+		return {"Response": "200 OK"}, 200
+	except:
 		return {"Response": "500 Internal Server Error"}, 500
 

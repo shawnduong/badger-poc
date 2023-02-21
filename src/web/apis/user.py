@@ -83,7 +83,7 @@ def api_user_info():
 		return {
 			"Response": "200 OK",
 			"User": {
-				"uid": f"{current_user.uid: 08x}",
+				"uid": f"{current_user.uid: 08X}",
 				"name": current_user.name,
 				"email": current_user.email,
 				"points": current_user.points,
