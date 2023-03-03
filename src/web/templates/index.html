@@ -5,25 +5,19 @@
 
 <body>
 
-	<center>
-		<img src="/static/png/badger.png" style="border: solid black; border-radius: 100%; width: 256px; margin-bottom: 6em;"/>
-	</center>
+	<h1 id="login-title">Welcome to HackMerced VIII</h1>
 
-	<h1>Default Badger User Login Page</h1>
-	<p>Badger is an open source IoT RFID-based authentication, attendance tracking, notification, and rewards system for small to large scale events. Check the project out on <a href="https://github.com/shawnduong/badger" target="_blank">GitHub</a>.</p>
-	<p>This is the default website that comes with Badger. It contains the user login page (this page), the user application panel, the admin login page, and the admin management panel. When deploying Badger for your event, you should change and style these pages. What you are viewing are the placeholders containing code for all the necessary functionalities.</p>
-	<p>For more help, please consult the <a href="https://github.com/shawnduong/badger/docs" target="_blank">documentation</a>.</p>
-
+	<img id="login-image" src="../static/png/directions.png">
 	<div id="login">
-		<h1>Login</h1>
-		<p>Please log in using your UID found on the back of your badge.</p>
+		<h2>Login</h2>
+		<p>Please log in using your UID found on the back of your badge as shown in the image. For assistance, please ask an organizer for help.</p>
 		<form action="/login" method="POST">
 			<label for="uid">UID:</label>
-			<input type="text" id="uid" name="uid">
-			<input type="submit" value="Log In">
+			<input type="text" id="uid" name="uid" placeholder="12345678">
+			<input id="login-button" type="submit" value="Log In">
 		</form>
 		{% if failed %}
-			<p style="color: red">Login failed. Please try again.</p>
+			<p style="color: rgb(255, 127, 127)">Login failed. Please try again.</p>
 		{% endif %}
 	</div>
 

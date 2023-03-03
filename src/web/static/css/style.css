@@ -1,5 +1,5 @@
 :root {
-	--main-color:       #B29F7E;
+	--main-color:       #FFFFFF;
 	--accent-color:     #C789BF;
 	--background-color: #1F1329;
 	--text-color:       #696969;
@@ -152,6 +152,51 @@ hr {
 
 .located {
 	background-color: #98BF64;
+}
+
+#login-image {
+	width: 50vh;
+}
+
+#login-title {
+	color: white;
+	font-family: 'Unbounded', sans-serif;
+	text-shadow: 0px 0px 10px #FFFFFF;
+}
+
+#uid {
+	padding: 0.5em;
+	background: linear-gradient(146.65deg, #3B264A 3.81%, #463156 107.59%);
+	border-radius: 20px;
+	border-style: none;
+
+	font-family: 'Space Mono';
+	font-style: normal;
+	font-weight: 700;
+	font-size: larger;
+
+	color: white;
+	text-align: center;
+}
+
+#uid::placeholder {
+	color: #8E74A0;
+}
+
+#login-button {
+	margin-top: 10px;
+	padding: 0.7em;
+	
+	font-family: 'Space Mono';
+	font-style: normal;
+	font-weight: 700;
+	text-align: center;
+
+	color: #FFFFFF;
+	background: linear-gradient(102.34deg, #FFBB95 -7.05%, #D363DF 108.5%);
+	box-shadow: 0px 0px 15px rgba(189, 129, 198, 0.7);
+	border-radius: 20px;
+	border-style: none;
 }
 
 #logout-button {
