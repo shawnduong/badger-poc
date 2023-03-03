@@ -23,7 +23,7 @@ a {
 }
 
 table, th, td {
-	border: 1px solid black;
+	border: none;
 	border-collapse: collapse;
 }
 
@@ -99,7 +99,8 @@ hr {
 }
 
 .table-header {
-	background-color: var(--accent-color);
+	background-color: #DB8DD7;
+	border: none;
 }
 
 .edit-icon {
@@ -128,15 +129,17 @@ hr {
 }
 
 .event-completed {
-	background-color: #CCC;
+	color: #5D4468;
+	background: linear-gradient(151.53deg, #37263F 15.89%, #3C2944 82.42%);
 }
 
 .event-completed a {
 	color: #666;
 }
 
-.event-happening {
-	background-color: #98BF64;
+.event-happening{
+	background: linear-gradient(151.53deg, #35E05B 15.89%, #238573 82.42%);
+	box-shadow: 0px 0px 15px rgba(1, 179, 68, 0.7);
 }
 
 .event-happening a {
@@ -246,6 +249,11 @@ hr {
 
 #events-expand-toggle:hover {
 	cursor: pointer;
+}
+
+#event-table {
+	border: none;
+	background: linear-gradient(151.53deg, #CBC2E3 15.89%, #D2BADB 82.42%);
 }
 
 #event-page h1, #event-page h2, #event-page h3 {
