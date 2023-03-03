@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html>
 
-{% set pageTitle = "Badger" %}{% include "includes/header.html" %}
+{% set pageTitle = "HackMerced VIII" %}{% include "includes/header.html" %}
 
 <body>
 
-	<a class="nodecor" href="/logout">&#8592; Logout</a>
-	<h1>Badger</h1>
+	<a id="logout-button" class="nodecor" href="/logout">&#8592; logout</a>
 
-	<div>
-		<h3>Account Info</h3>
-		<table class="invis-table">
-			<tr>
-				<td>UID</td>
-				<td><b id="info-uid"></b></td>
-			</tr>
-			<tr>
-				<td style="height: 1.5em">Name</td>
-				<td>
+	<div class="main-container">
+		<h1 id="card-title">HackerPass</h1>
+		<div class="container-content">
+			<div class="points-value">
+				<span id="info-points">0</span>
+			</div>
+			<div>
+				<p class="content-label">HACKER NAME</p>
 					<div id="name-container">
 						<b id="info-name"></b>
-						<img class="edit-icon" id="edit-name" style="margin-left: 2em"/>
+						<img class="edit-icon" id="edit-name"/>
 					</div>
 					<div id="name-edit-container" hidden>
 						<form id="name-edit-form">
@@ -29,14 +26,10 @@
 							<span class="delete" id="name-edit-cancel"></span>
 						</form>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td style="height: 1.5em">Email</td>
-				<td>
+				<p class="content-label">E-MAIL</p>
 					<div id="email-container">
 						<b id="info-email"></b>
-						<img class="edit-icon" id="edit-email" style="margin-left: 2em"/>
+						<img class="edit-icon" id="edit-email"/>
 					</div>
 					<div id="email-edit-container" hidden>
 						<form id="email-edit-form">
@@ -45,9 +38,26 @@
 							<span class="delete" id="email-edit-cancel"></span>
 						</form>
 					</div>
-				</td>
-			</tr>
-		</table>
+				<p class="content-label">USER ID</p>
+				<b class="content-value" id="info-uid"></b>
+			</div>
+			<hr>
+			<div>
+				<p class="content-label">HOW IT WORKS</p>
+				<p>Scan your HackerPass card at our workshops and activities to earn points towards rewards! Points will be automatically added to your account.
+					<br><br>Certain activities may also reward one-time use codes for points. Enter any codes you find here:</p>
+			</div>
+			<form id="code-submit-form">
+				<input type="text" id="entry-code" name="entry-code" placeholder="Enter a code here..."><br>
+				<input type="submit" id="code-submit-button" value="Submit">
+			</form>
+			<div id="badge-breakdown-container" hidden>
+				<p>Breakdown:</p>
+				<ul id="badge-breakdown"></ul>
+			</div>
+			<br>
+			<a id="badge-expand-toggle">Click for your points breakdown.</a>
+		</div>
 	</div>
 
 	<div>
@@ -61,22 +71,6 @@
 		<table id="event-table" style="width: 100%"></table>
 		<br>
 		<a id="events-expand-toggle">Expand</a>
-	</div>
-
-	<div>
-		<h3>Badge Info</h3>
-		<p>You have <span id="info-points">0</span> points.</p>
-		<b>Submit a Code</b>
-		<form id="code-submit-form">
-			<input type="text" id="entry-code" name="entry-code" style="margin-right: 1em">
-			<input type="submit" value="Submit">
-		</form>
-		<div id="badge-breakdown-container" hidden>
-			<p>Breakdown:</p>
-			<ul id="badge-breakdown"></ul>
-		</div>
-		<br>
-		<a id="badge-expand-toggle">Points Breakdown</a>
 	</div>
 
 	<div>
