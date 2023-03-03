@@ -1,1 +1,3 @@
 src/web/database.sqlite
+instance/database.sqlite
+__pycache__
